@@ -1,0 +1,388 @@
+//
+// Copyright (C) 2015 Realtek Semiconductor Corp.
+// All Rights Reserved.
+//
+// This program is the proprietary software of Realtek Semiconductor
+// Corporation and/or its licensors, and only be used, duplicated,
+// modified or distributed under the authorized license from Realtek.
+//
+// ANY USE OF THE SOFTWARE OTHER THAN AS AUTHORIZED UNDER
+// THIS LICENSE OR COPYRIGHT LAW IS PROHIBITED.
+//
+// $Revision: 40427 $
+// $Date: 2013-06-23 11:28:09 +0800 (Sun, 23 Jun 2013) $
+//
+// Purpose : Define diag shell commands for CAPWAP.
+//
+// Feature : The file includes the following module and sub-modules
+//           1) CAPWAP commands.
+//
+
+#ifdef CMD_CAPWAP_GET_STATE
+//CAPWAP configuration
+//get configuration
+//state configuration
+capwap get state
+#endif
+
+#ifdef CMD_CAPWAP_SET_STATE_DISABLE_ENABLE
+//CAPWAP configuration
+//set configuration
+//state configuration
+//disable function
+//enable function
+capwap set state ( disable | enable )
+#endif
+
+#ifdef CMD_CAPWAP_GET_UDP_PORT
+//CAPWAP configuration
+//get configuration
+//UDP port configuration
+capwap get udp-port
+#endif
+
+#ifdef CMD_CAPWAP_SET_UDP_PORT_CONTROL_DATA_PORT
+//CAPWAP configuration
+//set configuration
+//UDP port configuration
+//control port configuration
+//data port configuration
+//UDP port
+capwap set udp-port ( control | data ) <UINT:port>
+#endif
+
+#ifdef CMD_CAPWAP_GET_CONTROL_FRAME_ACTION
+//CAPWAP configuration
+//get configuration
+//control frame configuration
+//action configuration
+capwap get control-frame action
+#endif
+
+#ifdef CMD_CAPWAP_SET_CONTROL_FRAME_ACTION_FORWARD_TRAP_TO_CPU
+//CAPWAP configuration
+//set configuration
+//control frame configuration
+//action configuration
+//forward
+//trap to CPU
+capwap set control-frame action ( forward | trap-to-cpu )
+#endif
+
+#ifdef CMD_CAPWAP_GET_INVALID_HEADER_ACTION
+//CAPWAP configuration
+//get configuration
+//invalid header configuration
+//action configuration
+capwap get invalid-header action
+#endif
+
+#ifdef CMD_CAPWAP_SET_INVALID_HEADER_ACTION_DROP_TRAP_TO_CPU
+//CAPWAP configuration
+//set configuration
+//invalid header configuration
+//action configuration
+//drop
+//trap to CPU
+capwap set invalid-header action ( drop | trap-to-cpu )
+#endif
+
+#ifdef CMD_CAPWAP_GET_UNKNOWN_SA_ACTION
+//CAPWAP configuration
+//get configuration
+//unknown SA configuration
+//action configuration
+capwap get unknown-sa action
+#endif
+
+#ifdef CMD_CAPWAP_SET_UNKNOWN_SA_ACTION_FORWARD_DROP_TRAP_TO_CPU
+//CAPWAP configuration
+//set configuration
+//unknown SA configuration
+//action configuration
+//forward
+//drop
+//trap to CPU
+capwap set unknown-sa action ( forward | drop | trap-to-cpu )
+#endif
+
+#ifdef CMD_CAPWAP_GET_TRAP_TARGET
+//CAPWAP configuration
+//get configuration
+//trap target configuration
+capwap get trap-target
+#endif
+
+#ifdef CMD_CAPWAP_SET_TRAP_TARGET_LOCAL_MASTER
+//CAPWAP configuration
+//set configuration
+//trap target configuration
+//trap to local CPU
+//trap to master CPU
+capwap set trap-target ( local | master )
+#endif
+
+#ifdef CMD_CAPWAP_GET_BSSID_HASH_ALGO
+//CAPWAP configuration
+//get configuration
+//BSSID table hash algorithm configuration
+capwap get bssid-hash-algo
+#endif
+
+#ifdef CMD_CAPWAP_SET_BSSID_HASH_ALGO_ALGO_ID
+//CAPWAP configuration
+//set configuration
+//BSSID table hash algorithm configuration
+//algorithm ID
+capwap set bssid-hash-algo <UINT:algo_id>
+#endif
+
+#ifdef CMD_CAPWAP_GET_QOS_PROFILE_IDX
+//CAPWAP configuration
+//get configuration
+//QoS profile configuration
+//profile ID
+capwap get qos-profile <UINT:idx>
+#endif
+
+#ifdef CMD_CAPWAP_SET_QOS_PROFILE_IDX_INNER_TAG_OUTER_TAG_ORIGINAL_REMARK
+//CAPWAP configuration
+//set configuration
+//QoS profile configuration
+//profile ID
+//inner tag priority source configuration
+//outer tag priority source configuration
+//from original tag
+//from internal priority remarking
+capwap set qos-profile <UINT:idx> ( inner-tag | outer-tag ) ( original | remark )
+#endif
+
+#ifdef CMD_CAPWAP_SET_QOS_PROFILE_IDX_INNER_TAG_OUTER_TAG_FORCE_PRI
+//CAPWAP configuration
+//set configuration
+//QoS profile configuration
+//profile ID
+//inner tag priority source configuration
+//outer tag priority source configuration
+//force priority
+//priority value
+capwap set qos-profile <UINT:idx> ( inner-tag | outer-tag ) force <UINT:pri>
+#endif
+
+#ifdef CMD_CAPWAP_GET_TID_REMARK
+//CAPWAP configuration
+//get configuration
+//802.11e TID remarking configuration
+capwap get tid-remark
+#endif
+
+#ifdef CMD_CAPWAP_SET_TID_REMARK_DP_INT_PRI_TID
+//CAPWAP configuration
+//set configuration
+//802.11e TID remarking configuration
+//drop precedence (0~2)
+//internal priority (0~7)
+//remarked TID value (0~15)
+capwap set tid-remark <UINT:dp> <UINT:int_pri> <UINT:tid>
+#endif
+
+#ifdef CMD_CAPWAP_GET_BSSID_ENTRY_BSSID
+//CAPWAP configuration
+//get configuration
+//BSSID entry configuration
+//BSSID (AP's MAC address)
+capwap get bssid-entry <MACADDR:bssid>
+#endif
+
+#ifdef CMD_CAPWAP_DUMP_BSSID_ENTRY
+//CAPWAP configuration
+//dump configuration
+//BSSID entry configuration
+capwap dump bssid-entry
+#endif
+
+#ifdef CMD_CAPWAP_ADD_BSSID_ENTRY_BSSID_INNER_TAG_OUTER_TAG_UNTAG_UNTAG_PRI_ALL_VID
+//CAPWAP configuration
+//add configuration
+//BSSID entry configuration
+//BSSID (AP's MAC address)
+//inner VLAN assignment configuration
+//outer VLAN assignment configuration
+//assign VID to untagged and outer priority tagged packet
+//assign VID to untagged packet
+//assign VID to all packet type
+//VLAN ID
+capwap add bssid-entry <MACADDR:bssid> ( inner-tag | outer-tag ) ( untag | untag-pri | all ) <UINT:vid>
+#endif
+
+#ifdef CMD_CAPWAP_ADD_BSSID_ENTRY_BSSID_FORWARD_VLAN_INNER_OUTER
+//CAPWAP configuration
+//add configuration
+//BSSID entry configuration
+//BSSID (AP's MAC address)
+//forwarding VLAN configuration
+//inner VLAN
+//outer VLAN
+capwap add bssid-entry <MACADDR:bssid> forward-vlan ( inner | outer )
+#endif
+
+#ifdef CMD_CAPWAP_ADD_BSSID_ENTRY_BSSID_INTERNAL_PRIORITY_PRI
+//CAPWAP configuration
+//add configuration
+//BSSID entry configuration
+//BSSID (AP's MAC address)
+//internal priority configuration
+//internal priority
+capwap add bssid-entry <MACADDR:bssid> internal-priority <UINT:pri>
+#endif
+
+#ifdef CMD_CAPWAP_ADD_BSSID_ENTRY_BSSID_PRIORITY_GROUP_GRP
+//CAPWAP configuration
+//add configuration
+//BSSID entry configuration
+//BSSID (AP's MAC address)
+//priority selection group configuration
+//group ID
+capwap add bssid-entry <MACADDR:bssid> priority-group <UINT:grp>
+#endif
+
+#ifdef CMD_CAPWAP_ADD_BSSID_ENTRY_BSSID_INTERFACE_IFID
+//CAPWAP configuration
+//add configuration
+//BSSID entry configuration
+//BSSID (AP's MAC address)
+//interface configuration
+//interface ID
+capwap add bssid-entry <MACADDR:bssid> interface <UINT:ifid>
+#endif
+
+#ifdef CMD_CAPWAP_ADD_BSSID_ENTRY_BSSID_QOS_PROFILE_IDX
+//CAPWAP configuration
+//add configuration
+//BSSID entry configuration
+//BSSID (AP's MAC address)
+//QoS profile configuration
+//profile ID
+capwap add bssid-entry <MACADDR:bssid> qos-profile <UINT:idx>
+#endif
+
+#ifdef CMD_CAPWAP_ADD_BSSID_ENTRY_BSSID_RADIO_ID_RID
+//CAPWAP configuration
+//add configuration
+//BSSID entry configuration
+//BSSID (AP's MAC address)
+//radio ID configuration
+//radio ID (1~31)
+capwap add bssid-entry <MACADDR:bssid> radio-id <UINT:rid>
+#endif
+
+#ifdef CMD_CAPWAP_ADD_BSSID_ENTRY_BSSID_TID_ENCAP_STATE_DISABLE_ENABLE
+//CAPWAP configuration
+//add configuration
+//BSSID entry configuration
+//BSSID (AP's MAC address)
+//802.11e QoS Control field encapsulation configuration
+//state configuration
+//disable function
+//enable function
+capwap add bssid-entry <MACADDR:bssid> tid-encap state ( disable | enable )
+#endif
+
+#ifdef CMD_CAPWAP_ADD_BSSID_ENTRY_BSSID_WIRELESS_INFO_DATA
+//CAPWAP configuration
+//add configuration
+//BSSID entry configuration
+//BSSID (AP's MAC address)
+//wireless specific information configuration
+//wireless specific information, e.g. 0x0123456789abcdef
+capwap add bssid-entry <MACADDR:bssid> wireless-info <STRING:data>
+#endif
+
+#ifdef CMD_CAPWAP_DEL_BSSID_ENTRY_BSSID
+//CAPWAP configuration
+//delete configuration
+//BSSID entry configuration
+//BSSID (AP's MAC address)
+capwap del bssid-entry <MACADDR:bssid>
+#endif
+
+#ifdef CMD_CAPWAP_GET_UNICAST_VID_MAC
+//CAPWAP configuration
+//get configuration
+//unicast entry configuration
+//vid value, <0-4095>
+//unicast MAC address, e.g. A:B:C:D:E:F
+capwap get unicast <UINT:vid> <MACADDR:mac>
+#endif
+
+#ifdef CMD_CAPWAP_DUMP_UNICAST
+//CAPWAP configuration
+//dump configuration
+//unicast entry configuration
+capwap dump unicast
+#endif
+
+#ifdef CMD_CAPWAP_ADD_UNICAST_VID_MAC_BSSID
+//CAPWAP configuration
+//add configuration
+//unicast entry configuration
+//vid value, <0-4095>
+//unicast MAC address, e.g. A:B:C:D:E:F
+//BSSID (AP's MAC address)
+capwap add unicast <UINT:vid> <MACADDR:mac> <MACADDR:bssid>
+#endif
+
+#ifdef CMD_CAPWAP_DEL_UNICAST_VID_MAC
+//CAPWAP configuration
+//delete configuration
+//unicast entry configuration
+//vid value, <0-4095>
+//unicast MAC address, e.g. A:B:C:D:E:F
+capwap del unicast <UINT:vid> <MACADDR:mac>
+#endif
+
+#ifdef CMD_CAPWAP_GET_MULTICAST_VID_MAC
+//CAPWAP configuration
+//get configuration
+//multicast entry configuration
+//vid value, <0-4095>
+//multicast MAC address, e.g. 01:B:C:D:E:F
+capwap get multicast <UINT:vid> <MACADDR:mac>
+#endif
+
+#ifdef CMD_CAPWAP_DUMP_MULTICAST
+//CAPWAP configuration
+//dump configuration
+//multicast entry configuration
+capwap dump multicast
+#endif
+
+#ifdef CMD_CAPWAP_ADD_MULTICAST_VID_MAC_BSSID_BSSID
+//CAPWAP configuration
+//add configuration
+//multicast entry configuration
+//vid value, <0-4095>
+//multicast MAC address, e.g. 01:B:C:D:E:F
+//BSSID configuration
+//BSSID (AP's MAC address)
+capwap add multicast <UINT:vid> <MACADDR:mac> bssid <MACADDR:bssid>
+#endif
+
+#ifdef CMD_CAPWAP_DEL_MULTICAST_VID_MAC_BSSID_BSSID
+//CAPWAP configuration
+//delete configuration
+//multicast entry configuration
+//vid value, <0-4095>
+//multicast MAC address, e.g. 01:B:C:D:E:F
+//BSSID configuration
+//BSSID (AP's MAC address)
+capwap del multicast <UINT:vid> <MACADDR:mac> bssid <MACADDR:bssid>
+#endif
+
+#ifdef CMD_CAPWAP_DUMP_BSSID_LIST
+//CAPWAP configuration
+//dump configuration
+//BSSID list configuration
+capwap dump bssid-list
+#endif
+

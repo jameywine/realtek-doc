@@ -1,0 +1,283 @@
+//
+// Copyright (C) 2009 Realtek Semiconductor Corp.
+// All Rights Reserved.
+//
+// This program is the proprietary software of Realtek Semiconductor
+// Corporation and/or its licensors, and only be used, duplicated,
+// modified or distributed under the authorized license from Realtek.
+//
+// ANY USE OF THE SOFTWARE OTHER THAN AS AUTHORIZED UNDER
+// THIS LICENSE OR COPYRIGHT LAW IS PROHIBITED.
+//
+// $Revision: 76601 $
+// $Date: 2017-03-16 17:01:22 +0800 (Thu, 16 Mar 2017) $
+//
+// Purpose : Define diag shell commands for rtl8231.
+//
+// Feature : The file have include the following module and sub-modules
+//           1) rtl8231 commands.
+//           2) external GPIO commands.
+//
+
+#ifdef CMD_RTL8231_GET_MDC_PHY_ID_PAGE_REGISTER
+//rtl8231 configuration
+//get configuration
+//mdc/mdio configuration
+//phy id address
+//page number (29: internal page; 30: system page)
+//register address <0-31>
+rtl8231 get mdc <UINT:phy_id> <UINT:page> <UINT:register>
+#endif
+
+#ifdef CMD_RTL8231_SET_MDC_PHY_ID_PAGE_REGISTER_DATA
+//rtl8231 configuration
+//set configuration
+//mdc/mdio configuration
+//phy id address
+//page number (29: internal page; 30: system page)
+//register address <0-31>
+//data value
+rtl8231 set mdc <UINT:phy_id> <UINT:page> <UINT:register> <UINT:data>
+#endif
+
+#ifdef CMD_EXT_GPIO_DUMP_DEV_DEV_ID
+//external GPIO configuration
+//dump configuration
+//GPIO device configuration
+//GPIO device id
+ext-gpio dump dev <UINT:dev_id>
+#endif
+
+#ifdef CMD_EXT_GPIO_GET_DEV_DEV_ID_PIN_GPIO_ID
+//external GPIO configuration
+//get configuration
+//GPIO device configuration
+//GPIO device id
+//pin configuration
+//GPIO pin id - 8390: <0-56>, otherwise: <0-36>
+ext-gpio get dev <UINT:dev_id> pin <UINT:gpio_id>
+#endif
+
+#ifdef CMD_EXT_GPIO_GET_DEV_DEV_ID_PIN_GPIO_ID_DIRECTION
+//external GPIO configuration
+//get configuration
+//GPIO device configuration
+//GPIO device id
+//pin configuration
+//GPIO pin id - 8390: <0-56>, otherwise: <0-36>
+//GPIO direction configuration
+ext-gpio get dev <UINT:dev_id> pin <UINT:gpio_id> direction
+#endif
+
+#ifdef CMD_EXT_GPIO_GET_DEV_DEV_ID_READY
+//external GPIO configuration
+//get configuration
+//GPIO device configuration
+//GPIO device id
+//ready information
+ext-gpio get dev <UINT:dev_id> ready
+#endif
+
+#ifdef CMD_EXT_GPIO_GET_DEV_DEV_ID_STATE
+//external GPIO configuration
+//get configuration
+//GPIO device configuration
+//GPIO device id
+//state configuration
+ext-gpio get dev <UINT:dev_id> state
+#endif
+
+#ifdef CMD_EXT_GPIO_GET_DEV_DEV_ID_SYNC_STATE
+//external GPIO configuration
+//get configuration
+//GPIO device configuration
+//GPIO device id
+//sync GPIO configuration
+//state configuration
+ext-gpio get dev <UINT:dev_id> sync state
+#endif
+
+#ifdef CMD_EXT_GPIO_GET_DEV_DEV_ID_SYNC_STATUS
+//external GPIO configuration
+//get configuration
+//GPIO device configuration
+//GPIO device id
+//sync GPIO configuration
+//sync progress status (in progress or completed)
+ext-gpio get dev <UINT:dev_id> sync status
+#endif
+
+#ifdef CMD_EXT_GPIO_GET_DEV_DEV_ID_REGISTER
+//external GPIO configuration
+//get configuration
+//GPIO device configuration
+//GPIO device id
+//register address <0-31>
+ext-gpio get dev <UINT:dev_id> <UINT:register>
+#endif
+
+#ifdef CMD_EXT_GPIO_GET_DEV_DEV_ID_READ_I2C_REGISTER_NUMBER
+//external GPIO configuration
+//get configuration
+//GPIO device configuration
+//GPIO device id
+//read configuration
+//via i2c access
+//register address
+//number
+ext-gpio get dev <UINT:dev_id> read i2c <UINT:register> <UINT:number>
+#endif
+
+#ifdef CMD_EXT_GPIO_SET_DEV_DEV_ID_INIT_I2C_SCK_PIN_SCK_GPIO_ID_SDA_PIN_SDA_GPIO_ID
+//external GPIO configuration
+//set configuration
+//GPIO device configuration
+//GPIO device id
+//init configuration
+//via i2c access
+//sck-pin configuration
+//sck-pin GPIO pin id <0-36>
+//sda-pin configuration
+//sda-pin GPIO pin id <0-36>
+ext-gpio set dev <UINT:dev_id> init i2c sck-pin <UINT:sck_gpio_id> sda-pin <UINT:sda_gpio_id>
+#endif
+
+#ifdef CMD_EXT_GPIO_SET_DEV_DEV_ID_INIT_MDC_PHY_ID_PAGE
+//external GPIO configuration
+//set configuration
+//GPIO device configuration
+//GPIO device id
+//init configuration
+//via mdc/mdio access
+//phy id address
+//page number (30: system page)
+ext-gpio set dev <UINT:dev_id> init mdc <UINT:phy_id> <UINT:page>
+#endif
+
+#ifdef CMD_EXT_GPIO_SET_DEV_DEV_ID_PIN_GPIO_ID_INIT_IN_OUT_DEBOUNCE_INVERTER
+//external GPIO configuration
+//set configuration
+//GPIO device configuration
+//GPIO device id
+//pin configuration
+//GPIO pin id <0-36>
+//GPIO pin init configuration
+//GPIO input direction
+//GPIO output direction
+//enable debounce ability (supported on GPIO 31-36)
+//inverter the GPIO
+ext-gpio set dev <UINT:dev_id> pin <UINT:gpio_id> init ( in | out ) { debounce } { inverter }
+#endif
+
+#ifdef CMD_EXT_GPIO_SET_DEV_DEV_ID_PIN_GPIO_ID_DIRECTION_IN_OUT
+//external GPIO configuration
+//set configuration
+//GPIO device configuration
+//GPIO device id
+//pin configuration
+//GPIO pin id - 8390: <0-56>, otherwise: <0-36>
+//GPIO direction configuration
+//GPIO input direction
+//GPIO output direction
+ext-gpio set dev <UINT:dev_id> pin <UINT:gpio_id> direction ( in | out )
+#endif
+
+#ifdef CMD_EXT_GPIO_SET_DEV_DEV_ID_PIN_GPIO_ID_DATA
+//external GPIO configuration
+//set configuration
+//GPIO device configuration
+//GPIO device id
+//pin configuration
+//GPIO pin id - 8390: <0-56>, otherwise: <0-36>
+//GPIO data value
+ext-gpio set dev <UINT:dev_id> pin <UINT:gpio_id> <UINT:data>
+#endif
+
+#ifdef CMD_EXT_GPIO_SET_DEV_DEV_ID_STATE_DISABLE_ENABLE
+//external GPIO configuration
+//set configuration
+//GPIO device configuration
+//GPIO device id
+//state configuration
+//disable function
+//enable function
+ext-gpio set dev <UINT:dev_id> state ( disable | enable )
+#endif
+
+#ifdef CMD_EXT_GPIO_SET_DEV_DEV_ID_SYNC_START
+//external GPIO configuration
+//set configuration
+//GPIO device configuration
+//GPIO device id
+//sync GPIO configuration
+//start GPIO sync progress
+ext-gpio set dev <UINT:dev_id> sync start
+#endif
+
+#ifdef CMD_EXT_GPIO_SET_DEV_DEV_ID_SYNC_STATE_DISABLE_ENABLE
+//external GPIO configuration
+//set configuration
+//GPIO device configuration
+//GPIO device id
+//sync GPIO configuration
+//state configuration
+//disable function
+//enable function
+ext-gpio set dev <UINT:dev_id> sync state ( disable | enable )
+#endif
+
+#ifdef CMD_EXT_GPIO_SET_DEV_DEV_ID_WRITE_I2C_REGISTER_DATA
+//external GPIO configuration
+//set configuration
+//GPIO device configuration
+//GPIO device id
+//write configuration
+//via i2c access
+//register address
+//data (one byte value)
+ext-gpio set dev <UINT:dev_id> write i2c <UINT:register> <UINT:data>
+#endif
+
+#ifdef CMD_EXT_GPIO_SET_DEV_DEV_ID_REGISTER_DATA
+//external GPIO configuration
+//set configuration
+//GPIO device configuration
+//GPIO device id
+//register address <0-30>
+//data value
+ext-gpio set dev <UINT:dev_id> <UINT:register> <UINT:data>
+#endif
+
+#ifdef CMD_EXT_SMI_GET_PERIPHERAL_PERIPHERAL_ID_REG_ADD
+//Extensional SMI configuration
+//Get configuration
+//Peripheral
+//Peripheral id
+//Register Address
+ext-smi get peripheral <UINT:peripheral_id> <UINT:reg_add>
+#endif
+
+#ifdef CMD_EXT_SMI_SET_PERIPHERAL_PERIPHERAL_ID_INIT_DEV_DEV_ID_SCK_SCK_ID_SDA_SDA_ID
+//Extensional SMI configuration
+//set configuration
+//Peripheral
+//Peripheral id
+//Init configuration
+//GPIO device configuration
+//GPIO device id
+//SCK configuration
+//Pin id for SCK
+//SDA configuration
+//Pin id for SDA
+ext-smi set peripheral <UINT:peripheral_id> init dev <UINT:dev_id> sck <UINT:sck_id> sda <UINT:sda_id>
+#endif
+
+#ifdef CMD_EXT_SMI_SET_PERIPHERAL_PERIPHERAL_ID_REG_ADD_REG_DATA
+//Extensional SMI configuration
+//set configuration
+//Peripheral
+//Peripheral id
+//Register Address
+//Register Data
+ext-smi set peripheral <UINT:peripheral_id> <UINT:reg_add> <UINT:reg_data>
+#endif

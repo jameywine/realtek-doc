@@ -1,0 +1,119 @@
+#
+# Copyright (C) 2009 Realtek Semiconductor Corp.
+#
+# Makefile for SDK Linux Rtusr User Library
+#
+
+CFLAGS_y += -Wall -Werror -Wuninitialized -Wstrict-prototypes
+
+SRCS_y =
+SRCS_y += rtusr_init.c
+SRCS_y += rtusr_msg.c
+SRCS_y += rtusr_l2.c
+SRCS_y += rtusr_l3.c
+SRCS_y += rtusr_port.c
+SRCS_y += rtusr_vlan.c
+SRCS_y += rtusr_bpe.c
+SRCS_y += rtusr_stp.c
+SRCS_y += rtusr_counter.c
+SRCS_y += rtusr_time.c
+SRCS_y += rtusr_trap.c
+SRCS_y += rtusr_qos.c
+SRCS_y += rtusr_trunk.c
+SRCS_y += rtusr_debug.c
+SRCS_y += rtusr_mirror.c
+SRCS_y += rtusr_flowctrl.c
+SRCS_y += rtusr_rate.c
+SRCS_y += rtusr_switch.c
+SRCS_y += rtusr_sys.c
+SRCS_y += rtusr_nic.c
+ifeq ($(CONFIG_SDK_DRIVER_L2NTFY), y)
+SRCS_y += rtusr_l2_ntfy.c
+endif
+SRCS_y += rtusr_diag.c
+SRCS_y += rtusr_eee.c
+SRCS_y += rtusr_sec.c
+SRCS_y += rtusr_led.c
+SRCS_y += rtusr_acl.c
+SRCS_y += rtusr_pie.c
+ifeq ($(CONFIG_SDK_UART1), y)
+SRCS_y += rtusr_uart.c
+endif
+ifeq ($(CONFIG_SDK_RTL8380), y)
+ifeq ($(CONFIG_SDK_APP_DIAG_EXT), y)
+    SRCS_y += rtusr_ext_8380.c
+    INCLUDE += -I$(MODELDIR)
+endif
+endif
+
+ifeq ($(CONFIG_SDK_RTL9300), y)
+ifeq ($(CONFIG_SDK_APP_DIAG_EXT), y)
+    SRCS_y += rtusr_ext_9300.c
+    INCLUDE += -I$(MODELDIR)
+endif
+endif
+
+ifeq ($(CONFIG_SDK_RTL9310), y)
+ifeq ($(CONFIG_SDK_APP_DIAG_EXT), y)
+    SRCS_y += rtusr_ext_9310.c
+    INCLUDE += -I$(MODELDIR)
+endif
+endif
+
+SRCS_y += rtusr_private.c
+INCLUDE += -I$(UT_INCLUDE)
+
+	SRCS_y += rtusr_mpls.c
+	SRCS_y += rtusr_oam.c
+	SRCS_y += rtusr_mpls.c
+	SRCS_y += rtusr_oam.c
+	SRCS_y += rtusr_pie.c
+	SRCS_y += rtusr_tunnel.c
+	SRCS_y += rtusr_vxlan.c
+	SRCS_y += rtusr_openflow.c
+	SRCS_y += rtusr_capwap.c
+#	SRCS_y += rtusr_bpe.c
+
+	SRCS_y += rtusr_stack.c
+	SRCS_y	+= rtusr_mcast.c
+	SRCS_y	+= rtusr_ipmcast.c
+    	SRCS_y += rtusr_stack.c
+
+SRCS_y += rtusr_serdes.c
+SRCS_y += rtusr_hwp.c
+
+INCLUDE += -I$(SDK_INCLUDE) -I$(SYS_INCLUDE) -I$(DRV_INCLUDE) -I../include
+
+TARGET := obj
+
+SRCS = $(SRCS_y)
+OBJS = $(shell for i in $(SRCS); do n=`basename $$i`; echo -n $(TARGET)/$${n%%.*}.o ""; done)
+DEPS := $(OBJS:.o=.d)
+LIBNAME = $(SDK_LIBDIR)/librtusr.a
+
+all: $(LIBNAME)
+
+$(LIBNAME): $(OBJS)
+	$(AR) rv $(LIBNAME) $(OBJS)
+	$(STRIP) --strip-debug -R .note -R .comment $@
+
+$(TARGET)/%.o: %.c
+	$(CC) $(INCLUDE) $(CFLAGS) $(CFLAGS_y) -c -o $@ $<
+
+$(TARGET)/%.d: %.c
+	@set -e; rm -f $@; \
+	$(CC) -MM $(INCLUDE) $(CFLAGS) $(CFLAGS_y) $< > $@.$$$$; \
+	sed 's,\($(*F)\)\.o[ :]*,$(@D)/$(*F).o $@ : ,g' < $@.$$$$ > $@
+	@rm -f $@.*
+
+#Don't create dependencies when we're cleaning, installing, ...
+NODEP := clean install romfs
+ifeq (0, $(words $(findstring $(MAKECMDGOALS), $(NODEP))))
+    -include $(DEPS)
+endif
+
+romfs:
+
+clean:
+	rm -f $(OBJS) $(LIBNAME) $(DEPS)
+

@@ -1,0 +1,50 @@
+//
+// Copyright (C) 2009 Realtek Semiconductor Corp.
+// All Rights Reserved.
+//
+// This program is the proprietary software of Realtek Semiconductor
+// Corporation and/or its licensors, and only be used, duplicated,
+// modified or distributed under the authorized license from Realtek.
+//
+// ANY USE OF THE SOFTWARE OTHER THAN AS AUTHORIZED UNDER
+// THIS LICENSE OR COPYRIGHT LAW IS PROHIBITED.
+//
+// $Revision: 27701 $
+// $Date: 2012-04-02 11:10:51 +0800 (Mon, 02 Apr 2012) $
+//
+// Purpose : Define diag shell commands for reg.
+//
+// Feature : The file have include the following module and sub-modules
+//           1) serdes commands.
+//
+
+#ifdef CMD_SERDES_GET_ID_SDSID_PAGE_PAGE_REG_REG
+//diag configuration
+//get configuration
+//serdes interface
+//serdes index
+//page configuration
+//page address
+//register configuration
+//register address
+serdes get id <UINT:sdsId> page <UINT:page> reg <UINT:reg>
+#endif
+
+#ifdef CMD_SERDES_SET_ID_SDSID_PAGE_PAGE_REG_REG_DATA_DATA
+//diag configuration
+//set configuration
+//serdes interface
+//serdes index
+//page configuration
+//page address
+//register configuration
+//register address
+//data configuration
+//data value
+serdes set id <UINT:sdsId> page <UINT:page> reg <UINT:reg> data <UINT:data>
+#endif
+
+
+
+
+
