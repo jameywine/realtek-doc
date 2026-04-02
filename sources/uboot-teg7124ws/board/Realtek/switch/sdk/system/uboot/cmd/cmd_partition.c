@@ -1,0 +1,1 @@
+../../../../../../../../../sdk/system/uboot/cmd/cmd_partition.c

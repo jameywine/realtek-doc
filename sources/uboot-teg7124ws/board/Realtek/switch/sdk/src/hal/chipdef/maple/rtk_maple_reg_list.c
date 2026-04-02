@@ -1,0 +1,1 @@
+../../../../../../../../../../sdk/src/hal/chipdef/maple/rtk_maple_reg_list.c

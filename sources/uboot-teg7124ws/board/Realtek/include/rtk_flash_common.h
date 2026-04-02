@@ -1,0 +1,1 @@
+/home/alex_chen/TRENDnet_93xx_TEG-7214WS_GPL/Realtek_Pure_Source/sdk/sdk_v3.6.6.55087/loader/u-boot-2011.12/../../sdk/system/linux/linux-3.18.24.x/include/linux/mtd/rtk_flash_common.h

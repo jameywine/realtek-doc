@@ -1,0 +1,1 @@
+../../../../../../../../../../sdk/src/hal/chipdef/longan/rtk_longan_regField_list.c

@@ -1,0 +1,1 @@
+../../../../../../../../../sdk/src/hal/common/halctrl.c

@@ -1,0 +1,1 @@
+../../../../../../../../../sdk/system/drv/swcore/swcore.c

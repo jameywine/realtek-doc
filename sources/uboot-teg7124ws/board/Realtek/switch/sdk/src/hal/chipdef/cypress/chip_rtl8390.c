@@ -1,0 +1,1 @@
+../../../../../../../../../../sdk/src/hal/chipdef/cypress/chip_rtl8390.c

@@ -1,0 +1,1 @@
+../../../../../../../../../sdk/src/dal/mango/dal_mango_stp.c

@@ -1,0 +1,1 @@
+../../../../../../../../../../sdk/src/hal/chipdef/mango/chip_rtl9310.c

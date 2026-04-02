@@ -1,0 +1,1 @@
+../../../../../../../../../../sdk/src/hal/chipdef/mango/rtk_mango_regField_list.c

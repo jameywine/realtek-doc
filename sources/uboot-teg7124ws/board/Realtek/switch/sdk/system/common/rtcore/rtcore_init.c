@@ -1,0 +1,1 @@
+../../../../../../../../../sdk/system/common/rtcore/rtcore_init.c
