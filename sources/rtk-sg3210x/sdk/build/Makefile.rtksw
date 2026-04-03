@@ -1,0 +1,36 @@
+#
+# Copyright (C) 2021 Realtek Semiconductor Corp.
+#
+# Makefile for Realtek Linux Switchdev Driver
+#
+
+#
+# include configuration file
+#
+sinclude $(SDK_CONFIG)
+
+#
+# include makefile
+#
+
+
+#
+# object
+#	
+RTKSW_OBJ		  	:= sdk/system/linux/rtksw/rtksw_netdev.o
+RTKSW_OBJ		  	+= sdk/system/linux/rtksw/rtksw_swdev.o
+RTKSW_OBJ		  	+= sdk/system/linux/rtksw/rtksw_nic.o
+RTKSW_OBJ		  	+= sdk/system/linux/rtksw/rtksw.o
+RTKSW_OBJ		  	+= sdk/system/linux/rtksw/rtksw_stat.o
+RTKSW_OBJ		  	+= sdk/system/linux/rtksw/rtksw_hw.o
+RTKSW_OBJ		  	+= sdk/system/linux/rtksw/rtksw_fdb.o
+RTKSW_OBJ		  	+= sdk/system/linux/rtksw/rtksw_acl.o
+RTKSW_OBJ		  	+= sdk/system/linux/rtksw/rtksw_acl_rsv.o
+RTKSW_OBJ		  	+= sdk/system/linux/rtksw/rtksw_hw_acl.o
+RTKSW_OBJ		  	+= sdk/system/linux/rtksw/rtksw_flow.o
+RTKSW_OBJ		  	+= sdk/system/linux/rtksw/rtksw_flower.o
+RTKSW_OBJ		  	+= sdk/system/linux/rtksw/rtksw_router.o
+RTKSW_OBJ		  	+= sdk/system/linux/rtksw/rtksw_devlink.o
+RTKSW_OBJ		  	+= sdk/system/linux/rtksw/rtksw_nve.o
+RTKSW_OBJ		  	+= sdk/system/linux/rtksw/rtksw_nve_vxlan.o
+RTKSW_OBJ		  	+= sdk/system/linux/rtksw/rtksw_hw_nve.o

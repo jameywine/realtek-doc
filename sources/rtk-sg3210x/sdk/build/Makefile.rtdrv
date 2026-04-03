@@ -1,0 +1,48 @@
+#
+# Copyright (C) 2009 Realtek Semiconductor Corp.
+#
+# Makefile for SDK Linux Rtdrv Kernel Module
+#
+
+#
+# include configuration file
+#
+sinclude $(SDK_CONFIG)
+
+
+RTDRV_ALL_OBJ :=
+
+RTDRV_ALL_OBJ += rtdrv_netfilter.o
+
+ifeq ($(CONFIG_SDK_APP_DIAG_EXT),y)
+    ifeq ($(CONFIG_SDK_RTL9330),y)
+        RTDRV_ALL_OBJ += ext/rtdrv_netfilter_ext_9330.o
+    else ifeq ($(CONFIG_SDK_RTL9310),y)
+        RTDRV_ALL_OBJ += ext/rtdrv_netfilter_ext_9310.o
+    else ifeq ($(CONFIG_SDK_RTL9311B),y)
+        RTDRV_ALL_OBJ += ext/rtdrv_netfilter_ext_9311b.o
+    else ifeq ($(CONFIG_SDK_RTL9300),y)
+        RTDRV_ALL_OBJ += ext/rtdrv_netfilter_ext_9300.o
+    else ifeq ($(CONFIG_SDK_RTL8390),y)
+        RTDRV_ALL_OBJ += ext/rtdrv_netfilter_ext_8390.o
+    else ifeq ($(CONFIG_SDK_RTL8380),y)
+        RTDRV_ALL_OBJ += ext/rtdrv_netfilter_ext_8380.o
+    endif
+endif
+
+ifeq ($(CONFIG_SDK_MODEL_MODE),y)
+    RTSDK_CFLAGS += -I$(MODEL_PATH)
+    RTSDK_CFLAGS += -I$(MODEL_PATH)/common
+    ifeq ($(CONFIG_SDK_RTL9300),y)
+        RTSDK_CFLAGS += -I$(MODEL_PATH)/testcase/9300
+        RTSDK_CFLAGS += -I$(MODEL_PATH)/behavior_src/9300
+    endif
+    ifeq ($(CONFIG_SDK_RTL9310),y)
+        RTSDK_CFLAGS += -I$(MODEL_PATH)/testcase/9310
+        RTSDK_CFLAGS += -I$(MODEL_PATH)/behavior_src/9310
+    endif
+    ifeq ($(CONFIG_SDK_RTL9311B),y)
+        RTSDK_CFLAGS += -I$(MODEL_PATH)/testcase/9311b
+        RTSDK_CFLAGS += -I$(MODEL_PATH)/behavior_src/9311b
+    endif
+endif

@@ -1,0 +1,437 @@
+mainmenu "U-Boot Configuration"
+
+config IN_UBOOT
+    def_bool y
+
+#############################################################################
+
+menu "SDK Options"
+   source ../../../sdk/config/Kconfig.sdk
+endmenu
+
+#############################################################################
+
+config MISC_INIT_R
+    def_bool y
+
+menu "Board"
+    choice
+        prompt "Console"
+        default UART0
+
+        config UART0
+            bool "UART0"
+        config UART1
+            bool "UART1"
+    endchoice
+
+    config INTERRUPT_SUPPORT
+        bool "Interrupt Support"
+        default n
+
+    choice
+        prompt "Boot Type"
+        default BOOT_SPI_NOR
+
+        config BOOT_SPI_NOR
+            bool "SPI-NOR"
+        config BOOT_SPI_NAND
+            bool "SPI-NAND"
+    endchoice
+endmenu
+
+#############################################################################
+
+menu "Supported Commands"
+    config CMDLINE_EDITING
+        bool "Command Line Editing"
+        default y
+    config CMD_FLASH
+        bool "Flash Utilits"
+        default y
+    config CMD_MEMORY
+        bool "Memory Utilits"
+        default y
+    config CMD_IMI
+        bool "Show Header Information for Application Image"
+        default y
+    config CMD_ENV
+        def_bool n
+        depends on (CONFIG_FLASH_SRAM_ONLY = "y") || (CFG_ENV_IS_IN_FLASH != "y")
+    config CMD_ENV
+        bool y
+        depends on (CONFIG_FLASH_SRAM_ONLY != "y") && (CFG_ENV_IS_IN_FLASH = "y")
+    config CMD_DUMPREGS
+        bool "Display CP0 Registers"
+        default n
+    # Load from RS-232: BIN Format
+    config CMD_LOADB
+        def_bool y
+    # Load from RS-232: SREC Format
+    config CMD_LOADS
+        def_bool y
+    config CMD_SAVEENV
+        def_bool y
+
+    comment "Menu Boot Options"
+    config RTK_BOOT
+        bool "Enable Menu Boot"
+        default y
+
+    config TFTP_DOWNLOAD
+        bool "Tftp download"
+        default y
+        depends on RTK_BOOT
+    config SERIAL_DOWNLOAD
+        bool "Serial download"
+        default n
+        depends on RTK_BOOT
+    config ICE_DOWNLOAD
+        bool "ICE download"
+        default n
+        depends on RTK_BOOT
+    config STANDALONE_APP
+        bool "Standalone Application"
+        default n
+        depends on RTK_BOOT
+
+    config CMD_NET
+        def_bool y
+        depends on RTK_BOOT && TFTP_DOWNLOAD
+    config NET_MULTI
+        def_bool y
+        depends on RTK_BOOT && CMD_NET
+    config AUTOBOOT_PROMPT
+        string "autoboot prompt"
+        default ""
+        depends on RTK_BOOT
+    config CMD_RTK
+        def_bool y
+        depends on RTK_BOOT
+    config CMD_RUN
+        def_bool y
+        depends on RTK_BOOT
+endmenu
+
+#############################################################################
+
+menu "Networking"
+    config ETHADDR
+        string "MAC Address"
+        default "00:E0:4C:86:70:01"
+    config CMD_NET
+        bool "Network Command Support"
+        default n
+    config CMD_PING
+        bool "Ping"
+        default y
+    config NET_MULTI
+        def_bool y
+        depends on CMD_NET
+    config IPADDR
+        string "IP Address"
+        default "192.168.1.1"
+    config SERVERIP
+        string "TFTP Server IP Address"
+        default "192.168.1.111"
+endmenu
+
+#############################################################################
+
+#############################################################################
+
+menu "Miscellaneous"
+    config CFG_PROMPT
+        string "RTL9300 prompt"
+        default "RTL9300 # "
+        depends on SDK_RTL9300
+    config CFG_PROMPT
+        string "RTL8390 prompt"
+        default "RTL8390 # "
+        depends on SDK_RTL8390
+    config CFG_PROMPT
+        string "RTL8380 prompt"
+        default "RTL8380 # "
+        depends on RTL838X
+
+    config SYS_TEXT_BASE
+        hex "U-Boot Text Base"
+        default 0x83F00000
+
+    config BOOTDELAY
+        int "Boot Delay, -1 to Disable"
+        default -1
+
+    config BOOTCOMMAND
+        string "Boot Command"
+        default ""
+
+    config BOARDVERSION
+        string "Board Version"
+        default ""
+
+    config BOARDMODEL
+        string "Board Model of Platform"
+        default ""
+
+    config BOOTARGS
+        string "Booting Arguments"
+        default ""
+
+    config POSTWORD
+        string "Post Password"
+        default ""
+
+    config BAUDRATE
+        int "Baudrate"
+        default 115200
+
+    config LZMA
+        bool "enable LZMA"
+        default n
+
+    config ENABLE_SPI_NAND_DRIVER
+        bool "enable SPI NAND flash driver"
+        default n
+        depends on SDK_RTL9300 || SDK_RTL9310
+
+    config RTK_USB_EHCI_HCD
+        bool "enable USB EHCI Host controller driver"
+        default n
+        depends on SDK_RTL9300 || SDK_RTL9310
+endmenu
+
+#############################################################################
+
+menu "System"
+    comment "System Configuration"
+    config RTOS_TOOLCHAIN_USED
+        bool "Use RTOS ToolChain (Non Linux)"
+        default n
+    config ENABLE_IH_MAGIC_NUMBER_CHK
+        bool "System Image Loader Check"
+        default n
+    config IH_MAGIC_NUMBER
+        hex "Image Magic Number"
+        default 0x12345000
+    config ENV_CRC_ERROR_SAVE_DEFAULT_ENV
+        bool "ENV CRC ERROR, save default ENV"
+        default n
+endmenu
+
+#############################################################################
+
+    config SPI_NAND
+        def_bool y
+        depends on (ENABLE_SPI_NAND_DRIVER = "y")
+    config SPI_NAND_FLASH_INIT_FIRST
+        def_bool y
+        depends on (ENABLE_SPI_NAND_DRIVER = "y")
+    config SPI_NAND_FLASH
+        def_bool y
+        depends on (ENABLE_SPI_NAND_DRIVER = "y")
+    config ECC_ENGINE_INIT
+        def_bool y
+        depends on (ENABLE_SPI_NAND_DRIVER = "y")
+    config ECC_ENGINE
+        def_bool y
+        depends on (ENABLE_SPI_NAND_DRIVER = "y")
+    config CMD_SPI_NAND
+        def_bool y
+        depends on (ENABLE_SPI_NAND_DRIVER = "y")
+
+    config CONS_INDEX
+        int "console index"
+        default 1
+        depends on SDK_RTL8380
+    config SERIAL_SOFTWARE_FIFO
+        def_bool n
+        depends on SDK_RTL8380
+    config SYS_SDRAM_BASE
+        hex "SRAM base address"
+        default 0x80000000
+        depends on SDK_RTL8380
+    config MTD_PARTITIONS
+        bool "MTD parition"
+        default "n"
+        depends on SDK_RTL8380
+    config RTL8380
+        def_bool y
+        depends on SDK_RTL8380
+    config ENV_OVERWRITE
+        def_bool y
+        depends on SDK_RTL8380
+    config EXCEPTION_BASE
+        hex "Exception base address"
+        default 0xbf000000
+        depends on SDK_RTL8380
+
+    config CONS_INDEX
+        int "console index"
+        default 1
+        depends on SDK_RTL8390
+    config SERIAL_SOFTWARE_FIFO
+        def_bool n
+        depends on SDK_RTL8390
+    config SYS_SDRAM_BASE
+        hex "SRAM base address"
+        default 0x80000000
+        depends on SDK_RTL8390
+    config MTD_PARTITIONS
+        bool "MTD parition"
+        default "n"
+        depends on SDK_RTL8390
+    config RTL8390
+        def_bool y
+        depends on SDK_RTL8390
+    config ENV_OVERWRITE
+        def_bool y
+        depends on SDK_RTL8390
+    config EXCEPTION_BASE
+        hex "Exception base address"
+        default 0xbf000000
+        depends on SDK_RTL8390
+
+#    if ((CONFIG_RTL838X = "y") || (SDK_RTL8380 = "y"))
+#        source ./board/Realtek/rtl838x/menuconfig.in
+#    endif
+#    if ((CONFIG_RTL839X = "y") || (SDK_RTL8390 = "y"))
+#        source ./board/Realtek/rtl839x/menuconfig.in
+#    endif
+
+    config CMD_SF
+        def_bool y
+        depends on SDK_RTL9300 && BOOT_SPI_NOR
+    config NOR_SPIF_G3
+        def_bool y
+        depends on SDK_RTL9300 && BOOT_SPI_NOR
+    config SPI_NOR_FLASH
+        def_bool y
+        depends on SDK_RTL9300 && BOOT_SPI_NOR
+    config SPI_NAND_FLASH_G3
+        def_bool y
+        depends on SDK_RTL9300 && BOOT_SPI_NOR
+    config ECC_ENGINE_G2
+        def_bool y
+        depends on SDK_RTL9300 && BOOT_SPI_NOR
+    config OTTO40_PRJNAME
+        string "9300 NOR Boot"
+        default "9300_nor_demo"
+        depends on SDK_RTL9300 && BOOT_SPI_NOR
+    config ENV_OVERWRITE
+        def_bool y
+        depends on SDK_RTL9300 && BOOT_SPI_NOR
+    config MTD_PARTITIONS
+        bool "MTD parition"
+        default "n"
+        depends on SDK_RTL9300 && BOOT_SPI_NOR && !ENABLE_SPI_NAND_DRIVER
+
+    config CMD_SF
+        def_bool y
+        depends on SDK_RTL9310 && BOOT_SPI_NOR
+    config NOR_SPIF_G3
+        def_bool y
+        depends on SDK_RTL9310 && BOOT_SPI_NOR
+    config SPI_NOR_FLASH
+        def_bool y
+        depends on SDK_RTL9310 && BOOT_SPI_NOR
+    config SPI_NAND_FLASH_G3
+        def_bool y
+        depends on SDK_RTL9310 && BOOT_SPI_NOR
+    config ECC_ENGINE_G2
+        def_bool y
+        depends on SDK_RTL9310 && BOOT_SPI_NOR
+    config OTTO40_PRJNAME
+        string "9301 NOR Boot"
+        default "9310_nor_demo"
+        depends on SDK_RTL9310 && BOOT_SPI_NOR
+    config ENV_OVERWRITE
+        def_bool y
+        depends on SDK_RTL9310 && BOOT_SPI_NOR
+    config MTD_PARTITIONS
+        bool "MTD parition"
+        default "n"
+        depends on SDK_RTL9310 && BOOT_SPI_NOR && !ENABLE_SPI_NAND_DRIVER
+
+    config CMD_UBI
+        def_bool y
+        depends on ENABLE_SPI_NAND_DRIVER
+    config RBTREE
+        def_bool y
+        depends on ENABLE_SPI_NAND_DRIVER
+    config CMD_SPI_NAND
+        def_bool y
+        depends on ENABLE_SPI_NAND_DRIVER
+    config SPI_NAND_FLASH
+        def_bool y
+        depends on ENABLE_SPI_NAND_DRIVER
+    config ECC_ENGINE
+        def_bool y
+        depends on ENABLE_SPI_NAND_DRIVER
+    config LZMA
+        def_bool y
+        depends on ENABLE_SPI_NAND_DRIVER
+    config CMD_MTDPARTS
+        def_bool y
+        depends on ENABLE_SPI_NAND_DRIVER
+    config MTD_DEVICE
+        def_bool y
+        depends on ENABLE_SPI_NAND_DRIVER
+    config MTD_PARTITIONS
+        bool "MTD parition"
+        default "y"
+        depends on ENABLE_SPI_NAND_DRIVER
+    config SYS_MAX_NAND_DEVICE
+        hex "System MAX Device"
+        default 0x1
+        depends on ENABLE_SPI_NAND_DRIVER
+
+    config OTTO40_PRJNAME
+        string "9300 NAND Boot"
+        default "9300_nand_demo"
+        depends on SDK_RTL9300 && BOOT_SPI_NAND
+    config OTTO40_PRJNAME
+        string "9310 NAND Boot"
+        default "9310_nand_demo"
+        depends on SDK_RTL9310 && BOOT_SPI_NAND
+
+    config CMD_MTDPARTS
+        def_bool y
+        depends on BOOT_SPI_NAND
+    config CMD_UBI
+        def_bool y
+        depends on BOOT_SPI_NAND
+    config RBTREE
+        def_bool y
+        depends on BOOT_SPI_NAND
+    config CMD_SPI_NAND
+        def_bool y
+        depends on BOOT_SPI_NAND
+    config SPI_NAND_FLASH
+        def_bool y
+        depends on BOOT_SPI_NAND
+    config ECC_ENGINE
+        def_bool y
+        depends on BOOT_SPI_NAND
+    config LZMA
+        def_bool y
+        depends on BOOT_SPI_NAND
+    config MTD_DEVICE
+        def_bool y
+        depends on BOOT_SPI_NAND
+    config MTD_PARTITIONS
+        bool "MTD parition"
+        default "y"
+        depends on BOOT_SPI_NAND
+    config SYS_MAX_NAND_DEVICE
+        hex "System MAX Device"
+        default 0x1
+        depends on BOOT_SPI_NAND
+    config SPI_NAND_FLASH_G2
+        def_bool y
+        depends on BOOT_SPI_NAND
+    config ECC_ENGINE_G1
+        def_bool y
+        depends on BOOT_SPI_NAND
+
+#############################################################################

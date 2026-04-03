@@ -1,0 +1,15 @@
+#
+# Copyright (C) 2022 Realtek Semiconductor Corp.
+#
+# Makefile for SDK ATF Module
+#
+sinclude $(SDK_CONFIG)
+
+PLAT_RTK_SWITCH := plat/realtek/switch
+PLAT_INCLUDES += -I$(PLAT_RTK_SWITCH)/include
+PLAT_INCLUDES += -I$(PLAT_RTK_SWITCH)/system/include
+
+RTSDK_FLAGS := -D__ATF__
+BL2_CPPFLAGS += $(RTSDK_FLAGS)
+BL2_SOURCES += $(PLAT_RTK_SWITCH)/system/drv/swcore/chip_probe.c
+BL2_SOURCES += $(PLAT_RTK_SWITCH)/system/atf/mem/mem32_atf.c

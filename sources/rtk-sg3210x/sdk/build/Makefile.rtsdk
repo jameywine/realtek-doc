@@ -1,0 +1,42 @@
+#
+# Copyright (C) 2019 Realtek Semiconductor Corp.
+#
+# Makefile for SDK - arch-B lib
+#
+
+#
+# include configuration file
+#
+sinclude $(SDK_CONFIG)
+
+
+SDK_TOP_DIR := ../../..
+
+#
+# include makefile
+#
+
+include $(SDK_TOP_DIR)/sdk/build/Makefile.rtcore
+include $(SDK_TOP_DIR)/sdk/build/Makefile.rtk
+include $(SDK_TOP_DIR)/sdk/build/Makefile.phy
+include $(SDK_TOP_DIR)/sdk/build/Makefile.rtnic
+include $(SDK_TOP_DIR)/sdk/build/Makefile.rtnic_oob
+ifeq ($(CONFIG_SDK_LINK_TIME_GC),y)
+include $(SDK_TOP_DIR)/sdk/build/Makefile.feature
+endif
+
+#
+# object
+#
+RTK_ALL_OBJ     := $(addprefix sdk/src/,$(RTK_ALL_OBJ))
+PHY_OBJ         := $(addprefix sdk/src/,$(PHY_OBJ))
+CUST_PHY_OBJ    := $(addprefix sdk/src/,$(CUST_PHY))
+ifeq ($(CONFIG_SDK_LINK_TIME_GC),y)
+FEATURE_ALL_OBJ := $(addprefix sdk/system/feature/,$(FEATURE_ALL_OBJ))
+endif
+
+arch_B_lib  := $(RTCORE_OBJ) $(RTK_ALL_OBJ) $(PHY_OBJ) $(CUST_PHY_OBJ) $(NIC_ALL_OBJ) $(DIAG_OBJ) $(NIC_OOB_ALL_OBJ)
+ifeq ($(CONFIG_SDK_LINK_TIME_GC),y)
+arch_B_lib  += $(FEATURE_ALL_OBJ)
+endif
+

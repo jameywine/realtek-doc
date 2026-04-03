@@ -1,0 +1,106 @@
+#
+# Copyright (C) 2016 Realtek Semiconductor Corp.
+#
+# Makefile for SDK RTNIC Module
+#
+
+
+#
+# include configuration file
+#
+sinclude $(SDK_CONFIG)
+
+
+#
+# main
+#
+NTFY_OBJ    :=
+NIC_OBJ     :=
+NIC_DIR     := $(SDK_SYS_DIR)/drv/nic
+
+ifneq ($(filter y,$(CONFIG_SDK_DRIVER_NIC) $(CONFIG_SDK_DRIVER_EXTC_NIC)),)
+  # Diag
+  ifeq ($(CONFIG_SDK_DRIVER_NIC),y)
+    NIC_OBJ += $(NIC_DIR)/nic_diag.o
+  else # Only EXTC_NIC
+    ifeq ($(CONFIG_SDK_RTL9310),y)
+      NIC_OBJ += $(SDK_SYS_DIR)/drv/nic_pci/nic_diag.o
+    endif
+    ifneq ($(filter y,$(CONFIG_SDK_RTL9311B) $(CONFIG_SDK_RTL9330)),)
+      NIC_OBJ += $(NIC_DIR)/nic_diag.o
+    endif
+  endif
+
+  # Chip driver
+  ifeq ($(CONFIG_SDK_RTL8380),y)
+    ifeq ($(CONFIG_SDK_DRIVER_NIC),y)
+      NIC_OBJ += $(NIC_DIR)/nic_rtl8380.o
+    endif
+  endif
+  ifeq ($(CONFIG_SDK_RTL8390),y)
+    ifeq ($(CONFIG_SDK_DRIVER_NIC),y)
+      NIC_OBJ += $(NIC_DIR)/nic_rtl8390.o
+    endif
+  endif
+  ifeq ($(CONFIG_SDK_RTL9300),y)
+    ifeq ($(CONFIG_SDK_DRIVER_NIC),y)
+      NIC_OBJ += $(NIC_DIR)/nic_rtl9300.o
+    endif
+  endif
+  ifeq ($(CONFIG_SDK_RTL9310),y)
+    ifeq ($(CONFIG_SDK_DRIVER_NIC),y)
+      NIC_OBJ += $(NIC_DIR)/nic_rtl9310.o
+    else # Only EXTC_NIC
+      NIC_OBJ += $(SDK_SYS_DIR)/drv/nic_pci/nic_9310.o
+    endif
+  endif
+  ifeq ($(CONFIG_SDK_RTL9311B),y)
+    NIC_OBJ += $(NIC_DIR)/nic_rtl9311b.o
+  endif
+  ifeq ($(CONFIG_SDK_RTL9330),y)
+    NIC_OBJ += $(NIC_DIR)/nic_rtl9330.o
+  endif
+
+  # NIC driver
+  ifneq ($(filter y,$(CONFIG_SDK_RTL9311B) $(CONFIG_SDK_RTL9330)),)
+    NIC_OBJ += $(NIC_DIR)/nic2.o
+  else # Other chips except 9311b & 9330
+    ifeq ($(CONFIG_SDK_DRIVER_NIC),y)
+      ifeq ($(CONFIG_SDK_DRIVER_NIC_KERNEL_MODE),y)
+        NIC_OBJ += $(NIC_DIR)/nic.o
+      else ifeq ($(CONFIG_SDK_DRIVER_NIC_USER_MODE),y)
+        NIC_OBJ += $(NIC_DIR)/nic_usr.o \
+                   $(NIC_DIR)/nic_rx.o
+      else ifeq ($(CONFIG_IN_UBOOT),y)
+        NIC_OBJ += $(NIC_DIR)/nic.o
+      endif
+    else # Only EXTC_NIC
+      ifeq ($(CONFIG_SDK_RTL9310),y)
+        NIC_OBJ += $(NIC_DIR)/nic_rx.o
+      endif
+    endif
+  endif
+endif
+
+ifeq ($(CONFIG_SDK_DRIVER_L2NTFY),y)
+  NTFY_OBJ += $(NTFY_DIR)/l2ntfy_probe.o
+  ifneq ($(CONFIG_SDK_DRIVER_L2NTFY_R8390),)
+    NTFY_OBJ += $(NTFY_DIR)/l2ntfy_rtl8390.o
+  endif
+  ifneq ($(CONFIG_SDK_DRIVER_L2NTFY_R9300),)
+    NTFY_OBJ += $(NTFY_DIR)/l2ntfy_rtl9300.o
+  endif
+  ifneq ($(CONFIG_SDK_DRIVER_L2NTFY_R9310),)
+    NTFY_OBJ += $(NTFY_DIR)/l2ntfy_rtl9310.o
+  endif
+  ifneq ($(CONFIG_SDK_DRIVER_L2NTFY_R9311B),)
+    NTFY_OBJ += $(NTFY_DIR)/l2ntfy_rtl9311b.o
+  endif
+  ifeq ($(CONFIG_SDK_KERNEL_LINUX_KERNEL_MODE),y)
+    NTFY_OBJ += $(NTFY_DIR)/l2ntfy.o
+  else
+    NTFY_OBJ += $(NTFY_DIR)/l2ntfy_usr.o
+  endif
+endif
+
+NIC_ALL_OBJ := $(NIC_OBJ) $(NTFY_OBJ)

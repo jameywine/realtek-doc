@@ -1,0 +1,48 @@
+#
+# Copyright (C) 2015 Realtek Semiconductor Corp.
+#
+# Makefile for SDK U-Boot Module (SDK-3 usage)
+#
+
+#
+# include configuration file
+#
+sinclude $(SDK_CONFIG)
+
+
+UBOOT_OBJ += sdk/system/uboot/uboot_init.o
+UBOOT_OBJ += sdk/system/flash/flash_partition.o
+
+ifeq ($(CONFIG_TURNKEY_SYSINFO),y)
+  UBOOT_OBJ += sdk/system/uboot/cmd/cmd_sysinfo.o
+endif
+
+ifeq ($(CONFIG_IN_UBOOT),y)
+    UBOOT_OBJ += sdk/system/uboot/cmd/cmd_boota.o
+    UBOOT_OBJ += sdk/system/uboot/cmd/cmd_upgrade.o
+    UBOOT_OBJ += sdk/system/uboot/cmd/cmd_partition.o
+    
+    UBOOT_OBJ += sdk/system/uboot/cmd/uboot_cmd.o
+    UBOOT_OBJ += sdk/system/uboot/cmd/uboot_func.o
+    UBOOT_OBJ += sdk/system/uboot/mem/mem32_uboot.o
+
+    include $(SDK_TOP_DIR)/sdk/build/Makefile.rtcore
+    UBOOT_OBJ += $(RTCORE_OBJ)
+
+    include $(SDK_TOP_DIR)/sdk/build/Makefile.rtk
+    UBOOT_OBJ += $(addprefix sdk/src/, $(RTK_ALL_OBJ))
+
+    include $(SDK_TOP_DIR)/sdk/build/Makefile.phy
+    UBOOT_OBJ += $(addprefix sdk/src/, $(PHY_OBJ))
+    UBOOT_OBJ += $(addprefix sdk/src/, $(CUST_PHY))
+
+    ifeq ($(CONFIG_SDK_DRIVER_NIC),y)
+      UBOOT_OBJ += sdk/system/uboot/rtnic/uboot_rtnic_drv.o
+    endif
+
+    UBOOT_OBJ += sdk/system/uboot/rtnic/uboot_rtnic_oob.o
+
+    COBJS += $(addprefix $(SWITCH_DIR)/, $(UBOOT_OBJ))
+
+endif
+

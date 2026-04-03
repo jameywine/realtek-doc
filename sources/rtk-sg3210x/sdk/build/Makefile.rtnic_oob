@@ -1,0 +1,47 @@
+#
+# Copyright (C) 2016 Realtek Semiconductor Corp.
+#
+# Makefile for SDK Rtnic Module
+#
+
+
+#
+# include configuration file
+#
+sinclude $(SDK_CONFIG)
+
+#RTSDK_CFLAGS        += -I$(SDK_INCLUDE) -I$(SYS_INCLUDE) -I$(DRV_INCLUDE)
+
+#
+# main
+#
+
+OOB_OBJ         :=
+OOB_DIR         := $(SDK_SYS_DIR)/drv/oob
+
+OOB_OBJ += \
+    $(OOB_DIR)/oob.o
+
+ifneq ($(filter y,$(CONFIG_SDK_RTL9330) $(CONFIG_SDK_RTL9311B)),)
+    OOB_OBJ += \
+        $(OOB_DIR)/dal_common_oob.o
+endif
+
+ifeq ($(CONFIG_SDK_RTL9311B),y)
+    OOB_OBJ += \
+        $(OOB_DIR)/dal_tigershark_oob.o
+endif
+ifeq ($(CONFIG_SDK_RTL9330),y)
+    OOB_OBJ += \
+        $(OOB_DIR)/dal_bumblebee_oob.o
+endif
+
+ifeq ($(CONFIG_SDK_OOB_PHY_8213B),y)
+    OOB_OBJ += $(OOB_DIR)/phy/oob_phy_rtl8213b.o
+endif
+
+ifeq ($(CONFIG_SDK_KERNEL_LINUX_USER_MODE),y)
+    OOB_OBJ += \
+        $(OOB_DIR)/oob_usrExample.o
+endif
+NIC_OOB_ALL_OBJ := $(OOB_OBJ)

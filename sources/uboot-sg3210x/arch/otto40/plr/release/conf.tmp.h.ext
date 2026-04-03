@@ -1,0 +1,101 @@
+#ifndef __ASSEMBLER__
+    #define OTTO_KSEG2_BASE 0xC0000000
+    #define CACHELINE_SIZE 0x20
+    #define ICACHE_SIZE 0x8000
+    #define DCACHE_SIZE 0x8000
+    #define OTTO_LX_DEF_FREQ 175
+    #define OTTO_SRAM_DEF_FREQ 250
+    #define OTTO_SPI_NOR_START 0x94000000
+    #define OTTO_SRAM_START 0x9f000000
+    #define OTTO_SRAM_SIZE 0x10000
+    #define OTTO_SRAM_MASK 0xffff
+    #define OTTO_SRAM_SIZE_CFG 9
+    #define TLB_PAGE_SHIFT 12
+    #define TLB_PAGE_SIZE (1 << 12)
+    #define TLB_PAGE_MASK ((1 << 12) - 1)
+    #define TLB_NUM_TLB_ENTRY 32
+    #define TLB_NUM_TLB_MASK 0x1f
+    #define TLB_ENTRYHI_MASK 0xFFFFE000
+    #define OTTO_LPLR_ENTRY 0x9fc00000
+    #define OTTO_LPLR_SIZE 0x4000
+    #define OTTO_LPLR_CHECKSUM_OFFSET 0x1c
+    #define OTTO_SPI_NAND_PLR_ENTRY 0x9f000000
+    #define OTTO_SPI_NOR_PLR_ENTRY 0x9fc00000
+    #define OTTO_HEADER_OFFSET 0x20
+    #define UART_BASE_ADDR 0xb8002000
+    #define MAX_PAGE_BUF_SIZE 2048
+    #define MAX_OOB_BUF_SIZE 128
+    #define MAX_ECC_BUF_SIZE 32
+    #define MAX_BYTE_PER_DMA 0x10000
+    #define MAX_ENC_FL_PAGE_NUM 56
+    #define MAX_ENC_FL_TRY_PAGE_NUM (56*2)
+    #define CC_PLAT_FLAGS -mips32r2 -mtune=34kc
+    #define AS_PLAT_FLAGS -mips32r2 -mtune=34kc
+    #define PREFERRED_TK_PREFIX /share/rlx/msdk-4.8.5-1004k-EB-3.18-u0.9.33-m32t-150818/bin/msdk-linux-
+    
+    
+    #define LX0_BTG_BASE_ADDR (0xB8144000)
+    #define LX1_BTG_BASE_ADDR (0xB800A000)
+    #define LX2_BTG_BASE_ADDR (0xB8018000)
+    
+    
+    #define SWITCH_4B_ADDR_MODE() 
+    
+    
+    #define _lplr_soc_t (*(soc_t*)(OTTO_LPLR_ENTRY+OTTO_HEADER_OFFSET))
+    #define _lplr_bios (*(basic_io_t*)(OTTO_LPLR_ENTRY+OTTO_HEADER_OFFSET))
+    #define _lplr_header (_lplr_bios.header)
+    
+    
+    #define SRAM_CTRL_INIT li t0, 0xB8001300; lui t1, %hi(OTTO_SRAM_START); lui t3, 0x1FFF; and t1, t1, t3; ori t1, t1, 0x1; li t3, 0xB8004000; li t2, OTTO_SRAM_SIZE_CFG; sw t1, 0(t0); sw t2, 4(t0); sw t1, 0(t3); sw t2, 4(t3); lui t1, 0x0003; sw t1, 8(t3);
+#else //__ASSEMBLER__
+    #define OTTO_KSEG2_BASE 0xC0000000
+    #define CACHELINE_SIZE 0x20
+    #define ICACHE_SIZE 0x8000
+    #define DCACHE_SIZE 0x8000
+    #define OTTO_LX_DEF_FREQ 175
+    #define OTTO_SRAM_DEF_FREQ 250
+    #define OTTO_SPI_NOR_START 0x94000000
+    #define OTTO_SRAM_START 0x9f000000
+    #define OTTO_SRAM_SIZE 0x10000
+    #define OTTO_SRAM_MASK 0xffff
+    #define OTTO_SRAM_SIZE_CFG 9
+    #define TLB_PAGE_SHIFT 12
+    #define TLB_PAGE_SIZE (1 << 12)
+    #define TLB_PAGE_MASK ((1 << 12) - 1)
+    #define TLB_NUM_TLB_ENTRY 32
+    #define TLB_NUM_TLB_MASK 0x1f
+    #define TLB_ENTRYHI_MASK 0xFFFFE000
+    #define OTTO_LPLR_ENTRY 0x9fc00000
+    #define OTTO_LPLR_SIZE 0x4000
+    #define OTTO_LPLR_CHECKSUM_OFFSET 0x1c
+    #define OTTO_SPI_NAND_PLR_ENTRY 0x9f000000
+    #define OTTO_SPI_NOR_PLR_ENTRY 0x9fc00000
+    #define OTTO_HEADER_OFFSET 0x20
+    #define UART_BASE_ADDR 0xb8002000
+    #define MAX_PAGE_BUF_SIZE 2048
+    #define MAX_OOB_BUF_SIZE 128
+    #define MAX_ECC_BUF_SIZE 32
+    #define MAX_BYTE_PER_DMA 0x10000
+    #define MAX_ENC_FL_PAGE_NUM 56
+    #define MAX_ENC_FL_TRY_PAGE_NUM (56*2)
+    #define CC_PLAT_FLAGS -mips32r2 -mtune=34kc
+    #define AS_PLAT_FLAGS -mips32r2 -mtune=34kc
+    #define PREFERRED_TK_PREFIX /share/rlx/msdk-4.8.5-1004k-EB-3.18-u0.9.33-m32t-150818/bin/msdk-linux-
+    
+    
+    #define LX0_BTG_BASE_ADDR (0xB8144000)
+    #define LX1_BTG_BASE_ADDR (0xB800A000)
+    #define LX2_BTG_BASE_ADDR (0xB8018000)
+    
+    
+    #define SWITCH_4B_ADDR_MODE() 
+    
+    
+    #define _lplr_soc_t (*(soc_t*)(OTTO_LPLR_ENTRY+OTTO_HEADER_OFFSET))
+    #define _lplr_bios (*(basic_io_t*)(OTTO_LPLR_ENTRY+OTTO_HEADER_OFFSET))
+    #define _lplr_header (_lplr_bios.header)
+    
+    
+    #define SRAM_CTRL_INIT li t0, 0xB8001300; lui t1, %hi(OTTO_SRAM_START); lui t3, 0x1FFF; and t1, t1, t3; ori t1, t1, 0x1; li t3, 0xB8004000; li t2, OTTO_SRAM_SIZE_CFG; sw t1, 0(t0); sw t2, 4(t0); sw t1, 0(t3); sw t2, 4(t3); lui t1, 0x0003; sw t1, 8(t3);
+#endif //__ASSEMBLER__\n

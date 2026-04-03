@@ -1,0 +1,79 @@
+#
+# Copyright (C) 2015 Realtek Semiconductor Corp.
+#
+# Makefile for SDK U-Boot Module
+#
+
+#
+# include configuration file
+#
+sinclude $(SDK_CONFIG)
+
+include $(TOPDIR)/config.mk
+
+LIB	= $(obj)lib$(BOARD).o
+
+# CPPFLAGS += -I$(TOPDIR)/board/Realtek/switch -I$(TOPDIR)/board/Realtek/include
+AFLAGS += -I$(TOPDIR)/board/Realtek/switch -I$(TOPDIR)/board/Realtek/include
+
+COBJS	:= $(BOARD).o board_cmd.o
+
+ifdef CONFIG_CMD_DRAM_TEST
+COBJS	+= memctl_dram.o
+endif
+
+ifdef CONFIG_CMD_FLASH_TEST
+COBJS	+= memctl_flash.o
+endif
+
+include $(TOPDIR)/.config
+
+SWITCH_DIR 	= ../switch
+SDK_TOP_DIR     = $(TOPDIR)/board/Realtek/switch
+ifeq ($(SDK_SYS_DIR),)
+    SDK_SYS_DIR := sdk/system
+endif
+
+include $(TOPDIR)/board/Realtek/switch/sdk/build/Makefile.uboot.sdk
+
+
+SOBJS :=
+
+SRCS	:= $(SOBJS:.o=.S) $(COBJS:.o=.c)
+OBJS	:= $(addprefix $(obj),$(COBJS))
+SOBJS	:= $(addprefix $(obj),$(SOBJS))
+
+all:	$(subdir) $(LIB)
+
+$(LIB):	$(OBJS) $(SOBJS)
+	$(call cmd_link_o_target, $(OBJS) $(SOBJS))
+
+
+BUILD_DIR = $(TOPDIR)/board/Realtek/switch
+MODULE_SRC =  $(UBOOT_OBJ:.o=.c)
+
+ALL_SRC_PATH := $(sort $(dir $(MODULE_SRC)))
+ALL_HDR_PATH := $(sort $(dir $(SDK_HDR_FILE)))
+PATH_TO_SDK := ../../../../..
+
+SDK_HDR_FILE :=
+SDK_HDR_FILE += sdk/system/linux/dev_config.h
+SDK_HDR_FILE += sdk/system/linux/rtnic/rtnic_drv.h
+
+.PHONY: uboot_link_sdk
+uboot_link_sdk:
+	$(foreach i,$(ALL_SRC_PATH),$(if $(wildcard $(dir $(BUILD_DIR)/$i)),,$(shell mkdir -p $(dir $(BUILD_DIR)/$i))))
+	$(foreach i,$(MODULE_SRC),$(if $(wildcard $(BUILD_DIR)/$i),,$(shell cd $(BUILD_DIR)/$(dir $i); ln -s $(PATH_TO_SDK)/$(shell echo $(dir $i) | awk '{ gsub(/[a-zA-Z0-9_]+/, "..", $$0); print }')$i; cd - > /dev/null)))
+	#$(foreach i,$(MODULE_SRC),$(info ************i=$i:$(PATH_TO_SDK)/$(shell echo $(dir $i) | awk '{ gsub(/[a-zA-Z0-9_]+/, "..", $$0); print }')$i))
+
+
+
+
+#########################################################################
+
+# defines $(obj).depend target
+include $(SRCTREE)/rules.mk
+
+sinclude $(obj).depend
+
+#########################################################################

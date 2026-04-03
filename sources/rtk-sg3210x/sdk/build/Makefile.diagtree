@@ -1,0 +1,100 @@
+# Copyright (C) 2015 Realtek Semiconductor Corp.
+#
+# Makefile for including all system configurations
+#
+
+#
+# This makefile is used for generate diag cparser_tree.c/h independently form source code build flow.
+# cparser_tree.c/h are the command tree source code of diag shell commands.
+# They are generated at source code build time before building diag executable.
+#
+
+#
+# include configuration file
+#
+sinclude $(SDK_CONFIG)
+
+
+MODULE_SRC_PATH     := $(ROOT_PATH)/sdk/src/app/diag_v2/src
+SDKDIR ?= $(ROOT_PATH)/sdk
+SDK_ROOT_DIR = $(SDKDIR)
+
+PHONY :=
+DIAGDIR  = $(SDK_ROOT_DIR)/src/app/diag_v2
+DIAG_INC = $(DIAGDIR)/include
+DIAG_SRC = $(DIAGDIR)/src
+DIAG_SRC_EXT = $(DIAGDIR)/src/ext
+DIAG_CFG = $(DIAGDIR)/config
+DIAG_BIN = $(DIAGDIR)/bin
+
+
+ifneq ($(CONFIG_SDK_APP_DIAG_EXT),)
+    ifeq ($(CONFIG_SDK_RTL9330),y)
+        DEF += -D CONFIG_SDK_DIAG_EXT_RTL9330
+    else ifeq ($(CONFIG_SDK_RTL9310),y)
+        DEF += -D CONFIG_SDK_DIAG_EXT_RTL9310
+    else ifeq ($(CONFIG_SDK_RTL9311B),y)
+        DEF += -D CONFIG_SDK_DIAG_EXT_RTL9311B
+    else ifeq ($(CONFIG_SDK_RTL9300),y)
+        DEF += -D CONFIG_SDK_DIAG_EXT_RTL9300
+    else ifeq ($(CONFIG_SDK_RTL8390),y)
+        DEF += -D CONFIG_SDK_DIAG_EXT_RTL8390
+    else ifeq ($(CONFIG_SDK_RTL8380),y)
+        DEF += -D CONFIG_SDK_DIAG_EXT_RTL8380
+    endif
+endif
+
+
+
+DIAGDIR  = $(SDK_ROOT_DIR)/src/app/diag_v2
+DIAG_SRC = $(DIAGDIR)/src
+SYS_INC = $(SDK_ROOT_DIR)/system/include
+
+CLI_SRC := $(shell find $(DIAG_CFG)/ -name *.cli)
+FLAG_HDR := $(shell find $(DIAG_INC)/flag/ -name *.h)
+
+CMD_TREE_DEP := \
+    $(SYS_INC)/common/sdk_autoconf.h \
+    $(SYS_INC)/common/rt_autoconf.h  \
+    $(CLI_SRC) \
+    $(FLAG_HDR)
+
+CMD_TREE_SRC := $(DIAG_SRC)/parser/cparser_tree.c
+CMD_TREE_OBJ := $(DIAG_SRC)/parser/cparser_tree.o
+CMD_TREE_HDR := $(DIAG_INC)/parser/cparser_tree.h
+
+SCRIPT_OPTS :=
+ifeq ($(CONFIG_SDK_SQUT_CMD_OPT),y)
+    SCRIPT_OPTS += -sdktest
+endif
+
+PHONY += diag-tree
+diag-tree: $(CMD_TREE_SRC)
+
+PHONY += diag-tree-clean
+diag-tree-clean:
+	-rm -f $(CMD_TREE_SRC)
+	-rm -f $(CMD_TREE_HDR)
+	-rm -f $(CMD_TREE_OBJ)
+
+$(CMD_TREE_SRC): $(CMD_TREE_DEP)
+	@echo "Build cparser command tree."
+	@-rm -f $(CMD_TREE_SRC)
+	@-rm -f $(CMD_TREE_HDR)
+	@-rm -f $(CMD_TREE_OBJ)
+	@cd $(DIAGDIR)/config; \
+	chmod 755 ./script/mk_parser.py; \
+	./script/mk_parser.py $(DEF) $(SCRIPT_OPTS) diag_shell.cli -DF $(SYS_INC)/common/sdk_autoconf.h -fd ../include/flag/ -f cmd_flag.h; \
+	echo "Prepare to copy cparser files"; \
+	if [ -f $(DIAGDIR)/config/cparser_tree.h ]; \
+	then \
+		mv $(DIAGDIR)/config/cparser_tree.h  $(CMD_TREE_HDR); \
+	fi
+	@if [ -f $(DIAGDIR)/config/cparser_tree.c ]; \
+	then \
+		mv $(DIAGDIR)/config/cparser_tree.c $(CMD_TREE_SRC); \
+	fi
+
+
+
+

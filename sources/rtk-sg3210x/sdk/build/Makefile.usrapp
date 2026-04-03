@@ -1,0 +1,20 @@
+#
+# Copyright (C) 2021 Realtek Semiconductor Corp.
+#
+# Makefile for SDK Rtnic Module
+#
+
+
+#
+# include configuration file
+#
+sinclude $(SDK_CONFIG)
+
+RTSDK_CFLAGS        += -I$(DRV_INCLUDE)
+
+#
+# main
+#
+
+USRAPP_OBJ_U  := $(SDK_SYS_DIR)/linux/usrAppStart.o
+

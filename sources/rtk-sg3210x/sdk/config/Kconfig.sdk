@@ -1,0 +1,827 @@
+#############################################################################
+
+menu "Chip Support"
+    comment "Select your target MAC chip(s)"
+    config SDK_RTL9330
+        bool "RTL9330"
+        default n
+        help
+            Realtek RTL9330 Switch SoC
+    config SDK_RTL9310
+        bool "RTL9310"
+        default n
+        help
+            Realtek RTL9310 Switch SoC
+    config SDK_RTL9311B
+        bool "RTL9311B"
+        default n
+        help
+            Realtek RTL9311B Switch SoC
+    config SDK_RTL9300
+        bool "RTL9300"
+        default n
+        help
+            Realtek RTL9300 Switch SoC
+    config SDK_RTL8390
+        bool "RTL8390"
+        default n
+        help
+            Realtek RTL8390 Switch SoC
+    config SDK_RTL8380
+        bool "RTL8380"
+        default n
+        help
+            Realtek RTL8380 Switch SoC
+
+    comment "Select your target PHYs chip"
+    config SDK_RTL8208D
+        bool "RTL8208D"
+        default n
+        help
+            Realtek RTL8208D PHY SoC - 8 port 10/100 Fast Ethernet PHY
+    config SDK_RTL8208G
+        bool "RTL8208G"
+        default n
+        help
+            Realtek RTL8208G PHY SoC - 8 port 10/100 Fast Ethernet PHY
+    config SDK_RTL8208L
+        bool "RTL8208L"
+        default n
+        help
+            Realtek RTL8208L PHY SoC - 8 port 10/100 Fast Ethernet PHY
+    config SDK_RTL8212B
+        bool "RTL8212B"
+        default n
+        help
+            Realtek RTL8212B PHY SoC - 2 port 10/100/1000 Combo Giga Ethernet PHY
+    config SDK_RTL8214B
+        bool "RTL8214B"
+        default n
+        help
+            Realtek RTL8214B PHY SoC - 4 port 10/100/1000 Combo Giga Ethernet PHY
+    config SDK_RTL8214FB
+        bool "RTL8214FB"
+        default n
+        help
+            Realtek RTL8214FB PHY SoC - 4 port 10/100/1000 Combo Giga Ethernet PHY,
+            pin-to-pin compatible with RTL8214F
+    config SDK_RTL8214FC
+        bool "RTL8214FC"
+        default n
+        help
+            Realtek RTL8214FC PHY SoC - 4 port 10/100/1000 Combo Giga Ethernet PHY
+    config SDK_RTL8214C
+        bool "RTL8214C"
+        default n
+    config SDK_RTL8214QF
+        bool "RTL8214QF"
+        default n
+        help
+            Realtek RTL8214QF PHY SoC - 4 port Fiber Giga Ethernet PHY
+    config SDK_RTL8218B
+        bool "RTL8218B"
+        default n
+        help
+            Realtek RTL8218B PHY SoC - 8 port 10/100/1000 Giga Ethernet PHY
+    config SDK_RTL8218D
+        bool "RTL8218D"
+        default n
+        help
+            Realtek RTL8218D PHY SoC - 8 port 10/100/1000 Giga Ethernet PHY
+    config SDK_RTL8218E
+        bool "RTL8218E"
+        default n
+        help
+            Realtek RTL8218E PHY SoC - 8 port 10/100/1000 Giga Ethernet PHY
+    config SDK_RTL8218FB
+        bool "RTL8218FB"
+        default n
+        help
+            Realtek RTL8218FB PHY SoC - 4 port 10/100/1000+ 4 port 10/100/1000 Combo Giga Ethernet PHY
+    config SDK_RTL8226
+        bool "RTL8226"
+        default n
+        help
+            Realtek RTL8226 and RTL8226B PHY SoC - 1 port 2.5G Ethernet PHY
+    config SDK_RTL8295R
+        bool "RTL8295R"
+        default n
+        help
+            Realtek RTL8295R PHY SoC - 1 port Fiber 10 Giga Ethernet PHY
+    config SDK_RTL826X
+        bool "RTL8261/RTL8264"
+        default n
+        help
+            Realtek RTL8261/8264 PHY SoC - 1/4 port 10G Ethernet PHY
+    config SDK_RTL826XI
+        bool "RTL8261I/RTL8264I"
+        default n
+        help
+            Realtek RTL8261I/8264I PHY SoC - 1/4 port 10G Ethernet PHY
+    config SDK_RTL825X
+        bool "RTL8251/RTL8254"
+        default n
+        help
+            Realtek RTL8251/8254 PHY SoC - 1/4 port 5G Ethernet PHY
+    config SDK_RTL825XI
+        bool "RTL8251I/RTL8254I"
+        default n
+        help
+            Realtek RTL8251I/8254I PHY SoC - 1/4 port 5G Ethernet PHY
+    config SDK_RTL825XL
+        bool "RTL8251L/RTL8254L"
+        default n
+        help
+            Realtek RTL8251L/8254L PHY SoC - 1/4 port 5G Ethernet PHY
+    config SDK_RTL8224
+        bool "RTL8224"
+        default n
+        help
+            Realtek RTL8224 PHY SoC - 1/4 port 2.5G Ethernet PHY
+    config SDK_RTL8224QF
+        bool "RTL8224QF"
+        default n
+        help
+            Realtek RTL8224QF PHY SoC - 4 port Fiber 2.5G Ethernet PHY
+    config SDK_RTL826XB
+        bool "RTL8261N/8261B/8264B/8261BE"
+        default n
+        help
+            Realtek RTL8264B/8261B/8261N/8261BE PHY - 1/4 port 10G Ethernet PHY
+
+    comment "Select customer defined PHYs chip"
+    config SDK_PHY_CUST1
+        bool "CUSTOMER PHY 1"
+        default n
+
+    comment "Select your target oob PHYs chip"
+    config SDK_OOB_PHY_8213B
+        bool RTL8213B
+        default n
+
+    comment "Select your target oob PHYs driver"
+    config SDK_SEL_OOB_PHYDRV
+        bool "Select SDK OOB PHY Driver"
+        default y
+        depends on SDK_RTL9311B || SDK_RTL9330
+        help
+            OOB PHY driver could use Linux kernel provied driver or SDK OOB's driver.
+            If this option is y, the SDK OOB's driver will be used.
+endmenu
+
+
+#############################################################################
+
+menu "CPU"
+    config SDK_EXTERNAL_CPU
+        bool "External CPU"
+        default n
+        depends on !IN_UBOOT
+        help
+            SDK for External CPU
+    config SDK_ENDIAN_LITTLE
+        bool "CPU Little Endian"
+        default n
+        help
+            SDK for Little Endian CPU
+    config SDK_HW_ENDIAN_SWAP
+        bool "Reg Endian Swap by HW"
+        default n
+        help
+            Endian of Reg content is swapped by HW
+
+    choice
+        prompt "Architecture"
+        default TARGET_ARCH_MIPS
+        config TARGET_ARCH_ARM
+        bool "arm"
+        config TARGET_ARCH_MIPS
+        bool "mips"
+        config TARGET_ARCH_X86
+        bool "x86"
+    endchoice
+endmenu
+
+
+#############################################################################
+
+menu "Operating System"
+    choice
+        prompt "Select OS Kernel"
+        default SDK_KERNEL_LINUX
+        depends on !IN_UBOOT
+
+        config SDK_KERNEL_LINUX
+            bool "Linux"
+            help
+                SDK for Linux platform
+        config SDK_OS_KERNEL_OTHER
+            bool "Other"
+            help
+                SDK for other platform
+    endchoice
+    choice
+        prompt "Mode Support"
+        default SDK_KERNEL_LINUX_KERNEL_MODE
+        depends on !IN_UBOOT && SDK_KERNEL_LINUX
+
+        config SDK_KERNEL_LINUX_KERNEL_MODE
+            bool "Kernel"
+        config SDK_KERNEL_LINUX_USER_MODE
+            bool "User"
+    endchoice
+
+    config SDK_KERNEL_LINUX_MODULE_LOADABLE
+        bool "Loadable Module Support"
+        option modules
+        default y
+        depends on !IN_UBOOT && SDK_KERNEL_LINUX
+        help
+            Compile SDK component to become a loadable Linux module
+endmenu
+
+
+#############################################################################
+
+config UBOOT_SDK_SUPPORT
+    bool "SDK support"
+    default y
+    depends on IN_UBOOT
+
+
+menu "SDK Advanced Option"
+    config SDK_FEATURED_MINISDK
+        bool "Mini-SDK"
+        default y if (IN_UBOOT)
+        default n if (!IN_UBOOT)
+        help
+            Build Mini-SDK for specific feature
+
+    choice
+        prompt "Mini-SDK Type"
+        depends on (!IN_UBOOT && SDK_FEATURED_MINISDK)
+
+        default SDK_MINISDK_NET
+        config SDK_MINISDK_NET
+            bool "Basic Networking for CPU"
+            help
+                Mini-SDK for packets go through switch chip to CPU
+
+        config SDK_MINISDK_PHY
+            bool "PHY"
+            help
+                SDK includes only PHY related drivers (MAC driver is excluded)
+
+    endchoice
+
+    config SDK_LINK_TIME_GC
+        bool "Link-time garbage collection"
+        default n
+        depends on (SDK_FEATURED_MINISDK)
+        help
+            Select the option to enable the link-time garbage collection by using CFLAG: -ffunction-sections -fdata-sections and LDFLAGS: --gc-sections --entry=kernel_module_init_function
+endmenu
+
+
+#############################################################################
+
+menu "SDK Driver"
+    comment "Rtcore Driver support"
+    config SDK_DRIVER_RTCORE
+        bool "Rtcore Driver"
+        default y
+        depends on UBOOT_SDK_SUPPORT || !IN_UBOOT
+    config SDK_DRIVER_RTCORE_IN_LINUX_KERNEL
+        bool "Build Rtcore Driver in Linux Kernel"
+        default y
+        depends on UBOOT_SDK_SUPPORT || !IN_UBOOT
+
+    config SDK_DRIVER_NIC
+        bool "Nic Driver"
+        default y
+        depends on (UBOOT_SDK_SUPPORT || !IN_UBOOT) && SDK_DRIVER_RTCORE
+        help
+            Select the option to compile the NIC driver
+    config SDK_DRIVER_EXTC_NIC
+        bool "External CPU Nic Driver"
+        default n
+        depends on (UBOOT_SDK_SUPPORT || !IN_UBOOT) && SDK_DRIVER_RTCORE
+        help
+            Select the option to compile the NIC driver for External CPU
+    config SDK_DRIVER_EXTC_PCI
+        bool "PCI Driver"
+        default n
+        depends on (UBOOT_SDK_SUPPORT || !IN_UBOOT) && SDK_DRIVER_RTCORE
+        help
+            Select the option to compile the PCI driver for External CPU
+
+    config SDK_DRIVER_SPI
+        def_bool y
+        depends on (UBOOT_SDK_SUPPORT || !IN_UBOOT) && (SDK_DRIVER_RTCORE != "n")
+        help
+            Select the option to enable SPI driver support
+
+    #
+    # Timer/Counter(TC), Config TC1 as time stamps(debug/time-measure purpose)
+    #
+    config SDK_TC_TC1_TIME
+        def_bool y if (!IN_UBOOT) && (!SDK_EXTERNAL_CPU)
+        depends on (UBOOT_SDK_SUPPORT || !IN_UBOOT) && (SDK_DRIVER_RTCORE != "n")
+
+    config SDK_BSP_USBHCD
+        def_bool y
+        depends on (UBOOT_SDK_SUPPORT || !IN_UBOOT) && (SDK_DRIVER_RTCORE != "n") && SDK_KERNEL_LINUX && (SDK_RTL9300 || SDK_RTL9310)
+
+    config SDK_DRIVER_NIC_KERNEL_MODE
+        def_bool y if SDK_KERNEL_LINUX_KERNEL_MODE
+        def_bool n if SDK_KERNEL_LINUX_USER_MODE
+        depends on (UBOOT_SDK_SUPPORT || !IN_UBOOT) && SDK_DRIVER_NIC
+        help
+            Select the NIC driver in kernel mode
+    config SDK_DRIVER_NIC_USER_MODE
+        def_bool y if SDK_KERNEL_LINUX_USER_MODE
+        def_bool n if SDK_KERNEL_LINUX_KERNEL_MODE
+        depends on (UBOOT_SDK_SUPPORT || !IN_UBOOT) && SDK_DRIVER_NIC
+        help
+            Select the NIC driver in user mode
+
+    #
+    # Set per chip NIC driver configuration according to Chip Support and NIC driver support status
+    #
+    config SDK_DRIVER_NIC_R9330
+        def_bool y if (SDK_DRIVER_NIC && SDK_RTL9330)
+        def_bool n if (!SDK_DRIVER_NIC || !SDK_RTL9330)
+        depends on (UBOOT_SDK_SUPPORT || !IN_UBOOT)
+        help
+            Select the option to compile the 9330 NIC driver
+    config SDK_DRIVER_NIC_R9310
+        def_bool y if (SDK_DRIVER_NIC && SDK_RTL9310)
+        def_bool n if (!SDK_DRIVER_NIC || !SDK_RTL9310)
+        depends on (UBOOT_SDK_SUPPORT || !IN_UBOOT)
+        help
+            Select the option to compile the 9310 NIC driver
+    config SDK_DRIVER_NIC_R9311B
+        def_bool y if (SDK_DRIVER_NIC && SDK_RTL9311B)
+        def_bool n if (!SDK_DRIVER_NIC || !SDK_RTL9311B)
+        depends on (UBOOT_SDK_SUPPORT || !IN_UBOOT)
+        help
+            Select the option to compile the 9311B NIC driver
+    config SDK_DRIVER_NIC_R9300
+        def_bool y if (SDK_DRIVER_NIC && SDK_RTL9300)
+        def_bool n if (!SDK_DRIVER_NIC || !SDK_RTL9300)
+        depends on (UBOOT_SDK_SUPPORT || !IN_UBOOT)
+        help
+            Select the option to compile the 9300 NIC driver
+    config SDK_DRIVER_NIC_R8390
+        def_bool y if (SDK_DRIVER_NIC && SDK_RTL8390)
+        def_bool n if (!SDK_DRIVER_NIC || !SDK_RTL8390)
+        depends on (UBOOT_SDK_SUPPORT || !IN_UBOOT)
+        help
+            Select the option to compile the 8390 NIC driver
+    config SDK_DRIVER_NIC_R8380
+        def_bool y if (SDK_DRIVER_NIC && SDK_RTL8380)
+        def_bool n if (!SDK_DRIVER_NIC || !SDK_RTL8380)
+        depends on (UBOOT_SDK_SUPPORT || !IN_UBOOT)
+        help
+            Select the option to compile the 8380 NIC driver
+
+    config SDK_DRIVER_L2NTFY
+        bool "L2 Notify Driver"
+        default y
+        depends on !IN_UBOOT && (SDK_DRIVER_RTCORE != n) && !SDK_RTL8380 && !SDK_RTL9330
+        help
+            Select the option to compile the L2 notification driver
+
+    config SDK_DRIVER_L2NTFY_R9310
+        def_bool y if (SDK_DRIVER_L2NTFY && SDK_RTL9310)
+        def_bool n if (!SDK_DRIVER_L2NTFY || !SDK_RTL9310)
+        depends on !IN_UBOOT
+        help
+            Select the option to compile the 9310 L2 notification driver
+    config SDK_DRIVER_L2NTFY_R9311B
+        def_bool y if (SDK_DRIVER_L2NTFY && SDK_RTL9311B)
+        def_bool n if (!SDK_DRIVER_L2NTFY || !SDK_RTL9311B)
+        depends on !IN_UBOOT
+        help
+            Select the option to compile the 9311B L2 notification driver
+    config SDK_DRIVER_L2NTFY_R9300
+        def_bool y if (SDK_DRIVER_L2NTFY && SDK_RTL9300)
+        def_bool n if (!SDK_DRIVER_L2NTFY || !SDK_RTL9300)
+        depends on !IN_UBOOT
+        help
+            Select the option to compile the 9300 L2 notification driver
+    config SDK_DRIVER_L2NTFY_R8390
+        def_bool y if (SDK_DRIVER_L2NTFY && SDK_RTL8390)
+        def_bool n if (!SDK_DRIVER_L2NTFY || !SDK_RTL8390)
+        depends on !IN_UBOOT
+        help
+            Select the option to compile the 8390 L2 notification driver
+
+    comment "Rtk Driver / RTK API support"
+    config SDK_DRIVER_RTK
+        bool "Rtk Driver / RTK API"
+        default y if !SDK_KERNEL_LINUX_KERNEL_MODE
+        depends on !IN_UBOOT
+        help
+            Select the option to compile the feature code for RTK Kernel Driver or RTK User Library
+    config SDK_DRIVER_RTK_LEGACY_API
+        bool "Support RTK Legacy API"
+        default y
+        depends on !IN_UBOOT
+    config SDK_DRIVER_RTK_CUSTOMER
+        bool "Customization API"
+        default y
+        depends on !IN_UBOOT && (SDK_DRIVER_RTK != "n")
+        help
+            Select the option to compile the customer RTK API code for RTK Kernel Driver or RTK User Library
+
+    config SDK_RTKSIM
+        bool "RTK Simulator"
+        default n
+        depends on !IN_UBOOT
+        help
+            Select the option to compile the RTK Simulator
+
+    comment "Linux Net Driver support"
+    config SDK_DRIVER_MX
+        bool "Linux Net Driver"
+        default y if (SDK_KERNEL_LINUX && SDK_KERNEL_LINUX_KERNEL_MODE)
+        default n if (!SDK_KERNEL_LINUX || !SDK_KERNEL_LINUX_KERNEL_MODE)
+        depends on !IN_UBOOT
+        help
+            SDK Linux Net Driver
+
+    config SDK_DRIVER_RTDRV
+        bool "Linux User/Kernel Interface"
+        default y if SDK_KERNEL_LINUX_KERNEL_MODE && (SDK_DRIVER_MX = "y")
+        default n if !SDK_KERNEL_LINUX_KERNEL_MODE
+        depends on !IN_UBOOT && (SDK_DRIVER_MX != "n")
+        help
+            SDK Linux User/Kernel Common Driver
+
+    # "Linux Ethernet Driver" depends on "NIC Driver"
+    config SDK_DRIVER_RTNIC
+        bool "Linux Ethernet Driver"
+        default y if SDK_KERNEL_LINUX_KERNEL_MODE && (SDK_DRIVER_MX = "y") && SDK_DRIVER_NIC
+        default n if !SDK_KERNEL_LINUX_KERNEL_MODE || !SDK_DRIVER_NIC
+        depends on !IN_UBOOT && (SDK_DRIVER_MX != "n")
+        help
+            SDK Linux Ethernet Driver
+
+    # "Linux Ethernet Driver" depends on "NIC Driver"
+    config SDK_DRIVER_RTNIC_OOB
+        bool "Linux Ethernet OOB Driver"
+        default y if SDK_KERNEL_LINUX_KERNEL_MODE && (SDK_DRIVER_MX = "y") && SDK_DRIVER_NIC_OOB
+        default n if !SDK_KERNEL_LINUX_KERNEL_MODE || !SDK_DRIVER_NIC
+        depends on !IN_UBOOT && (SDK_DRIVER_MX != "n")
+        help
+            SDK Linux Ethernet OOB Driver
+
+    config SDK_DRIVER_COMPILE
+        bool "build driver in linux kernel"
+        default y if SDK_KERNEL_LINUX_KERNEL_MODE
+        depends on !IN_UBOOT
+        help
+            Compile all drivers below RTK Layer as built-in or module
+endmenu
+
+
+#############################################################################
+
+menu "SDK Application"
+    config SDK_APP_DIAG
+        bool "SDK Diag Shell"
+        default y
+        depends on !IN_UBOOT
+        help
+            Compile SDK Diag Shell
+    config SDK_APP_DIAG_DIR_DIAG_V2
+        def_bool y
+        depends on !IN_UBOOT && SDK_APP_DIAG
+    config SDK_APP_DIAG_EXT
+        bool "Extension Diag Shell"
+        default n
+        depends on !IN_UBOOT && SDK_APP_DIAG
+    config SDK_SQUT_CMD_OPT
+        bool "Extra command option for QA unit test"
+        default n
+        depends on !IN_UBOOT && SDK_APP_DIAG
+        help
+            Add additional command option for SDK QA Unit Test
+    config SDK_APP_COMPILE
+        def_bool y
+        depends on !IN_UBOOT && SDK_APP_DIAG
+
+    config SDK_REDEFINE_RTRPC_TO_RTK
+        def_bool y
+        depends on !IN_UBOOT && SDK_APP_DIAG && SDK_KERNEL_LINUX_KERNEL_MODE
+        help
+            Redefine the RTRPC API to RTK API
+endmenu
+
+
+#############################################################################
+
+menu "SDK Debug"
+    config SDK_DEBUG
+        bool "Enable SDK Debug Message"
+        default y
+        depends on !IN_UBOOT
+        help
+            Enable or disable SDK debug messages. Reduce the code size when you do not select this
+    choice
+        prompt "Debug Log Type"
+        default SDK_DEBUG_LOG_TYPE_LEVEL
+        depends on !IN_UBOOT && SDK_DEBUG
+
+        config SDK_DEBUG_LOG_TYPE_LEVEL
+            bool "Level"
+            help
+                Type: log level of debug messages
+        config SDK_DEBUG_LOG_TYPE_LEVEL_MASK
+            bool "Level-Mask"
+            help
+                Type: log level-mask of debug messages
+    endchoice
+    config SDK_DEBUG_LOG_LEVEL
+        int "Log Level"
+        default 3
+        depends on !IN_UBOOT && SDK_DEBUG && SDK_DEBUG_LOG_TYPE_LEVEL
+        help
+            Designate the logging level of debug messages.
+
+            0: FATAL ERROR
+            1: MAJOR ERROR
+            2: MINOR ERROR
+            3: WARNING
+            4: EVENT
+            5: INFO
+            6: FUNC_ENTER
+            7: DEBUG
+            8: TRACE
+
+    config SDK_DEBUG_LOG_LEVEL_MASK
+        hex "Log Level Mask"
+        default 0xF
+        depends on !IN_UBOOT && SDK_DEBUG && !SDK_DEBUG_LOG_TYPE_LEVEL
+        help
+            Assign a bitmask of debug levels
+
+            0xF     : DEFAULT LEVEL MASK OF MESSAGES (WARNING)
+            0x0     : ALL MESSAGES OFF
+            0x1FF   : ALL MESSAGES ON
+
+    config SDK_DEBUG_LOG_MOD_MASK
+        hex "Debug Log Module Mask"
+        default 0xFFFFFFFFFFFFFFFF
+        depends on !IN_UBOOT && SDK_DEBUG
+        help
+            Assign a bitmask of debug modules
+
+            0x0     : ALL MODULES OFF
+            0xFFFFFFFFFFFFFFFF: ALL MODULES ON
+
+            Please refer to the debug header file for other bit definition
+
+    config SDK_DUMP_REG_WITH_NAME
+        bool "Dump Register content with Name"
+        default n
+        depends on !IN_UBOOT
+    config SDK_DUMP_TABLE_WITH_NAME
+        bool "Dump Table content with Name"
+        default n
+        depends on !IN_UBOOT
+endmenu
+
+
+#############################################################################
+
+menu "BSP Option"
+    config SDK_BSP_FLASH
+        bool "Flash Common Setting"
+        default y
+    choice
+        prompt "Flash Layout"
+        default FLASH_LAYOUT_TYPE5
+        depends on SDK_BSP_FLASH
+
+        config FLASH_LAYOUT_TYPE5
+            bool "Type5"
+    endchoice
+
+    config TURNKEY_SYSINFO
+        def_bool y
+        depends on SDK_BSP_FLASH
+
+    config DUAL_IMAGE
+        def_bool y
+        depends on SDK_BSP_FLASH
+
+    config BDINFO_MTD_INDEX
+        hex "BDINFO MTD Index"
+        default 0x1
+        depends on !IN_UBOOT && SDK_BSP_FLASH
+
+    config SDK_BSP_MTD
+        bool "Linux Mtd Driver"
+        default y
+        depends on !IN_UBOOT && SDK_KERNEL_LINUX
+
+    config SDK_BSP_MTD_SPI
+        bool "SPI Flash Driver"
+        default y if (SDK_BSP_MTD = "y")
+        depends on !IN_UBOOT && SDK_KERNEL_LINUX && (SDK_BSP_MTD != "n")
+
+    config SDK_BSP_MTD_NOR
+        bool "NOR Flash Driver"
+        default n
+        depends on !IN_UBOOT && SDK_KERNEL_LINUX && (SDK_BSP_MTD != "n")
+
+    config SDK_BSP_MTD_SPIM
+        def_bool y if (SDK_BSP_MTD = "y")
+        depends on !IN_UBOOT && SDK_KERNEL_LINUX && (SDK_BSP_MTD != "n") && (SDK_RTL8380 || SDK_RTL8390)
+
+    config SDK_BSP_MTD_NORSF_G3
+        def_bool y if (SDK_BSP_MTD = "y")
+        depends on !IN_UBOOT && SDK_KERNEL_LINUX && (SDK_BSP_MTD != "n") && (SDK_RTL9310 || SDK_RTL9300) && (SDK_BSP_SPI_NAND_BOOT != "y")
+
+    config SDK_BSP_MTD_RTK_SPI_NAND
+        bool "SPI NAND_Flash Driver"
+        default y if (SDK_BSP_MTD = "y")
+        depends on !IN_UBOOT && SDK_KERNEL_LINUX && (SDK_BSP_MTD != "n") && (SDK_RTL9310 || SDK_RTL9300)
+
+    config SDK_BSP_MTD_SPI_NAND_G2
+        def_bool y if (SDK_BSP_MTD = "y")
+        depends on !IN_UBOOT && SDK_KERNEL_LINUX && (SDK_BSP_MTD != "n") && (SDK_RTL9310 || SDK_RTL9300) && SDK_BSP_SPI_NAND_BOOT
+
+    config SDK_BSP_MTD_ECC_G1
+        def_bool y if (SDK_BSP_MTD = "y")
+        depends on !IN_UBOOT && SDK_KERNEL_LINUX && (SDK_BSP_MTD != "n") && (SDK_RTL9310 || SDK_RTL9300) && SDK_BSP_SPI_NAND_BOOT
+
+    config SDK_BSP_MTD_SPI_NAND_G3
+        def_bool y if (SDK_BSP_MTD = "y")
+        depends on !IN_UBOOT && SDK_KERNEL_LINUX && (SDK_BSP_MTD != "n") && (SDK_RTL9310 || SDK_RTL9300) && !SDK_BSP_SPI_NAND_BOOT
+
+    config SDK_BSP_MTD_ECC_G2
+        def_bool y if (SDK_BSP_MTD = "y")
+        depends on !IN_UBOOT && SDK_KERNEL_LINUX && (SDK_BSP_MTD != "n") && (SDK_RTL9310 || SDK_RTL9300) && !SDK_BSP_SPI_NAND_BOOT
+
+    config SDK_BSP_SPI_DRV
+        bool "Linux SPI Controller Driver"
+        default y
+        depends on !IN_UBOOT && SDK_KERNEL_LINUX && (CONFIG_DEFAULTS_KERNEL_3_18_24 && !SDK_SPI_DEV_NONE)
+
+    choice
+        prompt "SPI device"
+        default SDK_SPI_DEV_NONE
+
+        config SDK_SPI_DEV_NONE
+            bool "none"
+        config SDK_SPI_DEV_1
+            bool "dev1"
+        config SDK_SPI_DEV_2
+            bool "dev2"
+        config SDK_SPI_DEV_3
+            bool "dev3"
+        config SDK_SPI_DEV_4
+            bool "dev4"
+        config SDK_SPI_DEV_5
+            bool "dev5"
+        config SDK_SPI_DEV_6
+            bool "dev6"
+        config SDK_SPI_DEV_7
+            bool "dev7"
+    endchoice
+
+    choice
+        prompt "Device Boot Type"
+        default SDK_BSP_SPI_NOR_BOOT
+
+        config SDK_BSP_SPI_NOR_BOOT
+            bool "SPI_NOR_Boot"
+        config SDK_BSP_SPI_NAND_BOOT
+            bool "SPI_NAND_Boot"
+    endchoice
+endmenu
+
+
+#############################################################################
+
+menu "Misc Option"
+    config SDK_FPGA_PLATFORM
+        bool "FPGA Platform"
+        default n
+    config SDK_FPGA_SOC
+        bool "FPGA Platform with SoC"
+        default y
+        depends on SDK_FPGA_PLATFORM
+
+    config SDK_DRIVER_TEST
+        bool "SDK Unit Test"
+        default y if !SDK_KERNEL_LINUX_KERNEL_MODE
+        depends on !IN_UBOOT
+        help
+            Select the option to compile the internal testing code for SDK Kernel Driver
+    config SDK_MODEL_MODE
+        bool "Model Code Simulation"
+        default n
+        depends on !IN_UBOOT
+        help
+            Select the option to verify SDK on x86 development platform
+    choice
+        prompt "Select Model Execution Mode"
+        default SDK_MODEL_MODE_KERNEL
+        depends on !IN_UBOOT && SDK_MODEL_MODE
+
+        config SDK_MODEL_MODE_KERNEL
+            bool "KERNEL"
+        config SDK_MODEL_MODE_USER
+            bool "USER"
+    endchoice
+    config VIRTUAL_ARRAY_ONLY
+        bool "Virtual Array ONLY"
+        default n
+        depends on !IN_UBOOT && SDK_MODEL_MODE
+
+    config SDK_RTL9310_RTL9330_MODEL
+        bool "9310-9330 Model Platform"
+        default n
+        depends on !IN_UBOOT
+    config SDK_LINKED_KMOD
+        bool "Linked Kernel Module Mode"
+        default n
+        depends on !IN_UBOOT
+        help
+            Select the option to linked the SDK kernel mode and don't build from source again
+    config TRUNK_FAILOVER_HANDLING
+        bool "TRUNK FailOver Handling"
+        default n
+        depends on !IN_UBOOT
+        help
+            Select the option to enable the trunk failover handing mechanism
+    config SDK_RX_THREAD
+        bool "NIC Rx Thread"
+        default n
+        depends on !IN_UBOOT
+        help
+            Select the option to enable the NIC receive thread
+
+    choice
+        prompt "Select LinkMon Thread Mode"
+        default SDK_LINKMON_POLLING_MODE
+        depends on !IN_UBOOT
+
+        config SDK_LINKMON_POLLING_MODE
+            bool "Polling"
+            help
+                Select the option to enable the LinkMon thread by polling mode
+        config SDK_LINKMON_ISR_MODE
+            bool "Interrupt"
+            help
+                Select the option to enable the LinkMon thread by interrupt mode
+        config SDK_LINKMON_MIXED_MODE
+            bool "Mixed"
+            help
+                Select the option to enable the LinkMon thread by polling and interrupt mixed mode
+    endchoice
+    config RISE
+        bool "RISE"
+        default y
+        depends on !IN_UBOOT
+    config SDK_SER_MONITOR
+        bool "SER Error Monitor"
+        help
+            Select the option to enable the SER Error Monitor
+        depends on !IN_UBOOT && !SDK_MINISDK_PHY
+
+    choice
+        prompt "Hardware profile probe method"
+        default SDK_HW_PROFILE_PROBE_UBOOT_ENV
+
+        config SDK_HW_PROFILE_PROBE_GPIO
+            bool "GPIO"
+        config SDK_HW_PROFILE_PROBE_UBOOT_ENV
+            bool "UBOOT-ENV"
+    endchoice
+
+    config SDK_OS_VERSION
+        string "OS Version"
+        default "Linux 3.18.24" if CONFIG_DEFAULTS_KERNEL_3_18_24
+        default "Linux 2.6.19" if !CONFIG_DEFAULTS_KERNEL_3_18_24 && CONFIG_DEFAULTS_KERNEL_2_6
+        default "" if !CONFIG_DEFAULTS_KERNEL_3_18_24 && !CONFIG_DEFAULTS_KERNEL_2_6
+
+    config SDK_COMPILER_VERSION
+        string "GCC Version"
+        default "GCC 4.8.5" if CONFIG_DEFAULTS_KERNEL_3_18_24
+        default "GCC 4.4.7" if !CONFIG_DEFAULTS_KERNEL_3_18_24 && CONFIG_DEFAULTS_KERNEL_2_6
+        default "" if !CONFIG_DEFAULTS_KERNEL_3_18_24 && !CONFIG_DEFAULTS_KERNEL_2_6
+
+    config SDK_LIBC_VERSION
+        string "C Library Version"
+        default "uClibc-0.9.33.2 with NPTL" if (CONFIG_LIBCDIR = "uClibc-0.9.33-485-318")
+        default "uClibc-0.9.33.2 with NPTL" if (CONFIG_LIBCDIR != "uClibc-0.9.33-485-318") && (CONFIG_LIBCDIR = "uClibc-0.9.33")
+        default "" if (CONFIG_LIBCDIR != "uClibc-0.9.33-485-318") && (CONFIG_LIBCDIR != "uClibc-0.9.33")
+endmenu
+
+
+#############################################################################
