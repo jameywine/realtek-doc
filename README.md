@@ -11,6 +11,7 @@ What RTK (development kit) we have
 - An older SDK from 2016 is based on the Zyxel XGS1210-12 GPL source. It contains code for a totally unknown RTL8284 PHY. Download can be requested from https://www.zyxel.com/global/en/form/gpl-oss-software-notice
 - The very recent SDK from 2023 is based on the Cudy GP3000 GPL source. It contains code for RTL960x and Cortina chips. Download from https://www.cudy.com/pages/download-center/gp3000-1-0
 - The Zyxel XMG-1915 U-Boot SDK was added because it includes some very special serdes setup for RTL930x. See [here](sources/uboot-xmg1915/src/dal/longan/dal_longan_construct.c)
+- Same goes for the Trendnet TEG-7124WS SDK. It is basically the same as the DMS-1250 but adds special handling for Broadcom PHY. See [here](sources/rtk-teg7124ws/src/hal/phy)
 
 PHY Direct Links
 
