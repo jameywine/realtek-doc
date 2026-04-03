@@ -22,7 +22,7 @@ What RTK (development kit) we have
 - The very recent SDK from 2023 is based on the Cudy GP3000 GPL source. It contains code for RTL960x and Cortina chips. Download from https://www.cudy.com/pages/download-center/gp3000-1-0
 - The Zyxel XMG-1915 U-Boot SDK was added because it includes some very special serdes setup for RTL930x. See [here](sources/uboot-xmg1915/src/dal/longan/dal_longan_construct.c)
 - Same goes for the Trendnet TEG-7124WS SDK. It is basically the same as the DMS-1250 but adds special handling for Broadcom PHY. See [here](sources/rtk-teg7124ws/src/hal/phy)
-- The TP-Link SG3210X download contains not much source code but the register definitions about the newer chipsets RTL9311B and RTL9330. See [here](sources/rtk-sg3210x/sdk/include/hal/chipdef)
+- The TP-Link SG3210X download contains not much source code but the register definitions about the newer chipsets RTL9311B and RTL9330. For register maps see [here](sources/rtk-sg3210x/sdk/system/include/private/drv/swcore) and [here](sources/rtk-sg3210x/sdk/include/hal/chipdef)
 
 PHY Direct Links
 
